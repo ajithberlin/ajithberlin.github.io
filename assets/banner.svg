@@ -25,7 +25,7 @@
   <rect width="1200" height="360" fill="url(#bg)"/>
   <ellipse cx="600" cy="180" rx="520" ry="220" fill="url(#halo)"/>
 
-  <!-- 星轨 / Star trails -->
+  <!-- Star trails -->
   <g opacity="0.35" stroke="url(#gold)" stroke-width="1" fill="none">
     <circle cx="600" cy="180" r="140" opacity="0.2">
       <animateTransform attributeName="transform" type="rotate" from="0 600 180" to="360 600 180" dur="60s" repeatCount="indefinite"/>
@@ -38,7 +38,7 @@
     </circle>
   </g>
 
-  <!-- 粒子 / Particles -->
+  <!-- Particles -->
   <g fill="#00B4A0" opacity="0.6">
     <circle cx="230" cy="90" r="1.5">
       <animate attributeName="opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
@@ -57,17 +57,17 @@
     </circle>
   </g>
 
-  <!-- 主标题 / Main title -->
+  <!-- Main title -->
   <text x="600" y="155" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="52" font-weight="700" fill="url(#gold)" letter-spacing="2">Ajith Berlin</text>
 
-  <!-- 打字机效果标签 / Typewriter tagline -->
+  <!-- Typewriter tagline -->
   <text x="600" y="205" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="22" fill="#e8e8f0" letter-spacing="1">
-    全栈开发者 · 开源爱好者 · 终身学习者
+    Full-Stack Developer · Open Source Enthusiast · Lifelong Learner
     <animate attributeName="opacity" values="1;0.7;1" dur="3s" repeatCount="indefinite"/>
   </text>
-  <text x="600" y="240" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="15" fill="#00B4A0" letter-spacing="3" opacity="0.9">Full-Stack Developer · Open Source Enthusiast · Lifelong Learner</text>
+  <text x="600" y="240" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="15" fill="#00B4A0" letter-spacing="3" opacity="0.9">Minimalist aesthetics · Robust engineering · Continuous learning</text>
 
-  <!-- 底部装饰线 / Decorative line -->
+  <!-- Decorative line -->
   <line x1="460" y1="285" x2="740" y2="285" stroke="url(#gold)" stroke-width="1" opacity="0.5">
     <animate attributeName="x2" values="740;460;740" dur="6s" repeatCount="indefinite"/>
   </line>

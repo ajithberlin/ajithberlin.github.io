@@ -1,81 +1,81 @@
 # .github/workflows/profile.yml
-# GitHub Actions 自动部署工作流：每日更新 Profile README 中的实时数据
-# 说明：
-#   - 每天北京时间 08:00（UTC 00:00）自动触发一次
-#   - 支持手动触发（workflow_dispatch），方便调试
-#   - 使用默认的 GITHUB_TOKEN，无需额外配置 Secrets
-#   - 所有更新自动提交并推送回当前仓库
+# GitHub Actions workflow: refresh live data in the Profile README every day.
+# Notes:
+#   - Runs daily at UTC 00:00 (08:00 Beijing time)
+#   - Supports manual trigger via workflow_dispatch for debugging
+#   - Uses the default GITHUB_TOKEN; no extra secrets required
+#   - Commits and pushes updates back to the repository automatically
 
 name: Profile README Auto Update
 
 on:
-  # schedule: 定时触发， cron 语法，此处为 UTC 00:00（北京时间 08:00）
+  # schedule: cron trigger, here UTC 00:00
   schedule:
     - cron: "0 0 * * *"
-  # workflow_dispatch: 允许从 Actions 页面手动触发
+  # workflow_dispatch: manual trigger from the Actions tab
   workflow_dispatch:
 
-# 权限配置：授予 Actions 对仓库内容的读写权限，用于自动提交
+# Grant write access so the workflow can commit changes
 permissions:
   contents: write
 
 jobs:
   update-readme:
-    # 运行环境：GitHub 提供的最新 Ubuntu 虚拟机
+    # Runner: latest GitHub-hosted Ubuntu VM
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 检出代码（fetch-depth: 0 保留完整历史，便于统计 streak/heatmap）
+      # 1. Check out the repo with full history for streak/heatmap stats
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. 设置 Node.js 环境（后续如需脚本读取 API 或生成 SVG 时使用）
+      # 2. Set up Node.js for scripts that call APIs or generate SVGs
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      # 3. 配置 Git 用户名与邮箱（用于自动提交）
+      # 3. Configure Git identity for automated commits
       - name: Configure Git
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      # 4. 生成访客计数 SVG（使用 shields.io 风格的本地 SVG）
-      #    实际生产环境可替换为真实计数服务；此处用随机数 + 日期模拟增长
+      # 4. Generate a local visitor-count SVG
+      #    Replace with a real counter service in production; this uses a date-based pseudo-count
       - name: Generate visitor count
         run: |
           VISITORS=$(( $(date +%j) * 12 + $(date +%H) * 7 + 1024 ))
           sed -i "s/>REPLACE</>${VISITORS}</g" assets/visitor-count.svg
 
-      # 5. 写入动态问候语（根据当前 UTC 小时判断早/中/晚）
+      # 5. Update the greeting based on the current UTC hour
       - name: Update greeting
         run: |
           HOUR=$(date -u +%H)
           if [ "$HOUR" -lt 11 ]; then
-            GREETING="🌅 早安，愿你今天写出优雅的代码"
+            GREETING="🌅 Good morning — may your code stay elegant today"
           elif [ "$HOUR" -lt 17 ]; then
-            GREETING="☀️ 午安，保持专注与创造"
+            GREETING="☀️ Good afternoon — stay focused and keep building"
           else
-            GREETING="🌙 晚安，感谢今天又贡献了一行代码"
+            GREETING="🌙 Good evening — thanks for contributing a line today"
           fi
-          # 使用占位符替换 README 中的问候行，注意保留 HTML 注释标记
+          # Replace the README greeting line while keeping the HTML comment markers
           sed -i "s|<h3>.*</h3>|<h3><img src=\"https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif\" width=\"22\"/> ${GREETING}</h3>|" README.md
 
-      # 6. 拉取项目 Star/Fork 数据并更新 README 项目表格
-      #    使用 GitHub API 查询用户公开仓库，按更新时间排序，选取前 3 个
+      # 6. Fetch project Star/Fork counts and update the README project table
+      #    Queries the GitHub API for public repos sorted by update time, top 3
       - name: Update project stats
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
         run: |
-          # 调用 GitHub API 获取仓库列表
+          # Call the GitHub API for the repo list
           REPOS=$(curl -s -H "Authorization: ******" \
             "https://api.github.com/users/$USERNAME/repos?sort=updated&per_page=3")
 
-          # 清空旧表格内容，只保留表头
+          # Reset the table to its header only
           awk '
             /<!-- AUTO-UPDATE: project-stats-start -->/{flag=1; print; print ""; print "<div align=\"center\">"; print ""; print "| Project | Value Proposition | Tech Stack | Stars / Forks | Preview |"; print "|---------|-------------------|------------|---------------|---------|"; next}
             /<!-- AUTO-UPDATE: project-stats-end -->/{flag=0; print ""; print "</div>"; print ""; print $0; next}
@@ -83,7 +83,7 @@ jobs:
             {print}
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # 将 JSON 解析为 Markdown 表格行并插入到结束标记之前
+          # Parse JSON into Markdown table rows and insert before the end marker
           ROWS=$(echo "$REPOS" | node -e '
             const repos = JSON.parse(require("fs").readFileSync(0, "utf-8"));
             const langColors = {
@@ -93,24 +93,24 @@ jobs:
               null: "808080"
             };
             const valueMap = {
-              "bixel-native": "原生 iOS 像素艺术体验，把复古创作带上移动端。",
-              "Skills": "交互式个人技能展示页，让能力像画廊一样被看见。",
-              "Inventory_Client": "现代化库存管理客户端，简洁高效的业务前端。",
-              "react-learning": "React 学习笔记与实战案例集合。",
-              "Trade": "简洁直观的交易信息展示页面。",
-              "example_plugin": "Kotlin 插件示例工程。",
-              "codespaces-react": "基于 GitHub Codespaces 的 React 模板。"
+              "bixel-native": "A native iOS pixel-art playground that brings retro creation to mobile.",
+              "Skills": "An interactive skills showcase where abilities feel like a curated gallery.",
+              "Inventory_Client": "A clean, efficient frontend for modern inventory management workflows.",
+              "react-learning": "React study notes and hands-on case collection.",
+              "Trade": "A clean, intuitive trading information display page.",
+              "example_plugin": "A Kotlin plugin sample project.",
+              "codespaces-react": "A React template based on GitHub Codespaces."
             };
             repos.forEach(r => {
               const lang = r.language || "Other";
               const color = langColors[r.language] || "808080";
-              const value = valueMap[r.name] || (r.description || "持续迭代中的开源项目");
+              const value = valueMap[r.name] || (r.description || "An open-source project in continuous iteration");
               const tech = `![${lang}](https://img.shields.io/badge/${encodeURIComponent(lang).replace(/-/g, "%2D")}-${color}?style=flat&logo=${(r.language || "github").toLowerCase()}&logoColor=white)`;
               console.log(`| <b><a href=\"${r.html_url}\">${r.name}</a></b> | ${value} | ${tech} | ⭐ ${r.stargazers_count} · 🍴 ${r.forks_count} | <img src=\"./assets/project-placeholder.svg\" width=\"180\"/> |`);
             });
           ')
 
-          # 将生成的行插入到 end marker 之前
+          # Insert the generated rows before the end marker
           awk -v rows="$ROWS" '
             /<!-- AUTO-UPDATE: project-stats-end -->/{
               print rows
@@ -118,7 +118,7 @@ jobs:
             {print}
           ' README.md > README.tmp && mv README.tmp README.md
 
-      # 7. 更新最新动态区块（列出最近 3 次提交，形成时间线感）
+      # 7. Refresh the latest-activity block with the last 3 commits
       - name: Update latest activity
         env:
           USERNAME: ${{ github.repository_owner }}
@@ -127,12 +127,12 @@ jobs:
           ACTIVITY=$(echo "$COMMITS" | awk -F'|' '
             {
               msg=$2; date=$3;
-              # 如果提交信息过长，截断并加省略号
+              # Truncate long messages and append ellipsis
               if (length(msg) > 55) msg = substr(msg, 1, 52) "...";
               print "- 🚀 " date " — " msg
             }
           ')
-          # 替换 latest-activity 区块内容
+          # Replace the latest-activity block content
           awk -v activity="$ACTIVITY" '
             /<!-- AUTO-UPDATE: latest-activity-start -->/{flag=1; print; print ""; print activity; next}
             /<!-- AUTO-UPDATE: latest-activity-end -->/{flag=0; print $0; next}
@@ -140,7 +140,7 @@ jobs:
             {print}
           ' README.md > README.tmp && mv README.tmp README.md
 
-      # 8. 检查是否有变更，若有则自动提交并推送
+      # 8. Commit and push if anything changed
       - name: Commit and push changes
         run: |
           if [ -n "$(git status --porcelain)" ]; then
