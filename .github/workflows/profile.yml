@@ -1,0 +1,152 @@
+# .github/workflows/profile.yml
+# GitHub Actions workflow: refresh live data in the Profile README every day.
+# Notes:
+#   - Runs daily at UTC 00:00 (08:00 Beijing time)
+#   - Supports manual trigger via workflow_dispatch for debugging
+#   - Uses the default GITHUB_TOKEN; no extra secrets required
+#   - Commits and pushes updates back to the repository automatically
+
+name: Profile README Auto Update
+
+on:
+  # schedule: cron trigger, here UTC 00:00
+  schedule:
+    - cron: "0 0 * * *"
+  # workflow_dispatch: manual trigger from the Actions tab
+  workflow_dispatch:
+
+# Grant write access so the workflow can commit changes
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    # Runner: latest GitHub-hosted Ubuntu VM
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repo with full history for streak/heatmap stats
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Set up Node.js for scripts that call APIs or generate SVGs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 3. Configure Git identity for automated commits
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      # 4. Generate a local visitor-count SVG
+      #    Replace with a real counter service in production; this uses a date-based pseudo-count
+      - name: Generate visitor count
+        run: |
+          VISITORS=$(( $(date +%j) * 12 + $(date +%H) * 7 + 1024 ))
+          sed -i "s/>REPLACE</>${VISITORS}</g" assets/visitor-count.svg
+
+      # 5. Update the greeting based on the current UTC hour
+      - name: Update greeting
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" -lt 11 ]; then
+            GREETING="🌅 Good morning — may your code stay elegant today"
+          elif [ "$HOUR" -lt 17 ]; then
+            GREETING="☀️ Good afternoon — stay focused and keep building"
+          else
+            GREETING="🌙 Good evening — thanks for contributing a line today"
+          fi
+          # Replace the README greeting line while keeping the HTML comment markers
+          sed -i "s|<h3>.*</h3>|<h3><img src=\"https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif\" width=\"22\"/> ${GREETING}</h3>|" README.md
+
+      # 6. Fetch project Star/Fork counts and update the README project table
+      #    Queries the GitHub API for public repos sorted by update time, top 3
+      - name: Update project stats
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          # Call the GitHub API for the repo list
+          REPOS=$(curl -s -H "Authorization: ******" \
+            "https://api.github.com/users/$USERNAME/repos?sort=updated&per_page=3")
+
+          # Reset the table to its header only
+          awk '
+            /<!-- AUTO-UPDATE: project-stats-start -->/{flag=1; print; print ""; print "<div align=\"center\">"; print ""; print "| Project | Value Proposition | Tech Stack | Stars / Forks | Preview |"; print "|---------|-------------------|------------|---------------|---------|"; next}
+            /<!-- AUTO-UPDATE: project-stats-end -->/{flag=0; print ""; print "</div>"; print ""; print $0; next}
+            flag{next}
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+          # Parse JSON into Markdown table rows and insert before the end marker
+          ROWS=$(echo "$REPOS" | node -e '
+            const repos = JSON.parse(require("fs").readFileSync(0, "utf-8"));
+            const langColors = {
+              Swift: "FA7343", HTML: "E34F26", JavaScript: "F7DF1E",
+              Kotlin: "7F52FF", Java: "ED8B00", Python: "3776AB",
+              TypeScript: "3178C6", Go: "00ADD8", CSS: "1572B6",
+              null: "808080"
+            };
+            const valueMap = {
+              "bixel-native": "A native iOS pixel-art playground that brings retro creation to mobile.",
+              "Skills": "An interactive skills showcase where abilities feel like a curated gallery.",
+              "Inventory_Client": "A clean, efficient frontend for modern inventory management workflows.",
+              "react-learning": "React study notes and hands-on case collection.",
+              "Trade": "A clean, intuitive trading information display page.",
+              "example_plugin": "A Kotlin plugin sample project.",
+              "codespaces-react": "A React template based on GitHub Codespaces."
+            };
+            repos.forEach(r => {
+              const lang = r.language || "Other";
+              const color = langColors[r.language] || "808080";
+              const value = valueMap[r.name] || (r.description || "An open-source project in continuous iteration");
+              const tech = `![${lang}](https://img.shields.io/badge/${encodeURIComponent(lang).replace(/-/g, "%2D")}-${color}?style=flat&logo=${(r.language || "github").toLowerCase()}&logoColor=white)`;
+              console.log(`| <b><a href=\"${r.html_url}\">${r.name}</a></b> | ${value} | ${tech} | ⭐ ${r.stargazers_count} · 🍴 ${r.forks_count} | <img src=\"./assets/project-placeholder.svg\" width=\"180\"/> |`);
+            });
+          ')
+
+          # Insert the generated rows before the end marker
+          awk -v rows="$ROWS" '
+            /<!-- AUTO-UPDATE: project-stats-end -->/{
+              print rows
+            }
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      # 7. Refresh the latest-activity block with the last 3 commits
+      - name: Update latest activity
+        env:
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          COMMITS=$(git log --all --author="$USERNAME" --pretty=format:"%h|%s|%ad" --date=short -3)
+          ACTIVITY=$(echo "$COMMITS" | awk -F'|' '
+            {
+              msg=$2; date=$3;
+              # Truncate long messages and append ellipsis
+              if (length(msg) > 55) msg = substr(msg, 1, 52) "...";
+              print "- 🚀 " date " — " msg
+            }
+          ')
+          # Replace the latest-activity block content
+          awk -v activity="$ACTIVITY" '
+            /<!-- AUTO-UPDATE: latest-activity-start -->/{flag=1; print; print ""; print activity; next}
+            /<!-- AUTO-UPDATE: latest-activity-end -->/{flag=0; print $0; next}
+            flag{next}
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      # 8. Commit and push if anything changed
+      - name: Commit and push changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add README.md assets/visitor-count.svg
+            git commit -m "chore: auto-update profile stats [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
