@@ -9,7 +9,7 @@
 
   <!-- Greeting -->
   <!-- AUTO-UPDATE: greeting -->
-  <h3><img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="22"/> Hello, world! I am <span style="color:#E63946;">Ajith Berlin</span></h3>
+  <h3><img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="22"/> 🌙 Good evening — thanks for contributing a line today</h3>
 
   <!-- Visitor count -->
   <!-- AUTO-UPDATE: visitor-count -->
@@ -78,18 +78,17 @@
 ## 🏆 Featured Projects
 
 <!-- AUTO-UPDATE: project-stats-start -->
-<!-- Star/Fork data is fetched daily by GitHub Actions -->
 
 <div align="center">
 
 | Project | Value Proposition | Tech Stack | Stars / Forks | Preview |
 |---------|-------------------|------------|---------------|---------|
-| <b><a href="https://github.com/ajithberlin/bixel-native">bixel-native</a></b> | A native iOS pixel-art playground that brings retro creation to mobile. | ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat&logo=swift&logoColor=white) | ⭐ 1 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
-| <b><a href="https://github.com/ajithberlin/Skills">Skills</a></b> | An interactive skills showcase where abilities feel like a curated gallery. | ![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white) | ⭐ 0 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
-| <b><a href="https://github.com/ajithberlin/Inventory_Client">Inventory_Client</a></b> | A clean, efficient frontend for modern inventory management workflows. | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ⭐ 0 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
 
 </div>
 
+| <b><a href="https://github.com/ajithberlin/ajithberlin.github.io">ajithberlin.github.io</a></b> | An open-source project in continuous iteration | ![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html&logoColor=white) | ⭐ 0 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
+| <b><a href="https://github.com/ajithberlin/bixel-native">bixel-native</a></b> | A native iOS pixel-art playground that brings retro creation to mobile. | ![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat&logo=swift&logoColor=white) | ⭐ 1 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
+| <b><a href="https://github.com/ajithberlin/Reactive-Resume">Reactive-Resume</a></b> | A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today! | ![Other](https://img.shields.io/badge/Other-808080?style=flat&logo=github&logoColor=white) | ⭐ 0 · 🍴 0 | <img src="./assets/project-placeholder.svg" width="180"/> |
 <!-- AUTO-UPDATE: project-stats-end -->
 
 ---
@@ -112,12 +111,8 @@
 ## 📝 Latest Updates
 
 <!-- AUTO-UPDATE: latest-activity-start -->
-<!-- Latest commits/posts are fetched by GitHub Actions -->
 
-- 🔄 Polishing <a href="https://github.com/ajithberlin/bixel-native"><b>bixel-native</b></a> — letting pixel art grow naturally on iOS.
-- 🎯 Exploring how minimal-tech aesthetics shape a developer's personal brand.
-- 📚 Continuously learning Swift, React Native, and modern frontend engineering.
-
+- 🚀 2026-09-13 — Merge pull request #1 from ajithberlin/copilot/add-g...
 <!-- AUTO-UPDATE: latest-activity-end -->
 
 ---
