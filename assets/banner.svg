@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="55%" stop-color="#101018"/>
+      <stop offset="100%" stop-color="#1a0f1c"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#E63946" stop-opacity="0.18"/>
+      <stop offset="45%" stop-color="#FF4D4F" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFB347"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <ellipse cx="600" cy="180" rx="520" ry="220" fill="url(#halo)"/>
+
+  <!-- 星轨 / Star trails -->
+  <g opacity="0.35" stroke="url(#gold)" stroke-width="1" fill="none">
+    <circle cx="600" cy="180" r="140" opacity="0.2">
+      <animateTransform attributeName="transform" type="rotate" from="0 600 180" to="360 600 180" dur="60s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="180" r="170" opacity="0.14">
+      <animateTransform attributeName="transform" type="rotate" from="360 600 180" to="0 600 180" dur="80s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="180" r="210" opacity="0.09">
+      <animateTransform attributeName="transform" type="rotate" from="0 600 180" to="360 600 180" dur="120s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- 粒子 / Particles -->
+  <g fill="#00B4A0" opacity="0.6">
+    <circle cx="230" cy="90" r="1.5">
+      <animate attributeName="opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="980" cy="110" r="1.8">
+      <animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="180" cy="260" r="1.2">
+      <animate attributeName="opacity" values="0.2;0.9;0.2" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1040" cy="240" r="1.6">
+      <animate attributeName="opacity" values="0.2;0.75;0.2" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="330" cy="300" r="1.1">
+      <animate attributeName="opacity" values="0.2;0.85;0.2" dur="5.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- 主标题 / Main title -->
+  <text x="600" y="155" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="52" font-weight="700" fill="url(#gold)" letter-spacing="2">Ajith Berlin</text>
+
+  <!-- 打字机效果标签 / Typewriter tagline -->
+  <text x="600" y="205" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="22" fill="#e8e8f0" letter-spacing="1">
+    全栈开发者 · 开源爱好者 · 终身学习者
+    <animate attributeName="opacity" values="1;0.7;1" dur="3s" repeatCount="indefinite"/>
+  </text>
+  <text x="600" y="240" text-anchor="middle" font-family="'JetBrains Mono', 'Inter', system-ui, sans-serif" font-size="15" fill="#00B4A0" letter-spacing="3" opacity="0.9">Full-Stack Developer · Open Source Enthusiast · Lifelong Learner</text>
+
+  <!-- 底部装饰线 / Decorative line -->
+  <line x1="460" y1="285" x2="740" y2="285" stroke="url(#gold)" stroke-width="1" opacity="0.5">
+    <animate attributeName="x2" values="740;460;740" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="460" cy="285" r="2" fill="#E63946"/>
+  <circle cx="740" cy="285" r="2" fill="#E63946"/>
+</svg>

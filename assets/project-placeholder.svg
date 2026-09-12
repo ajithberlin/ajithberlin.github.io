@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320">
+  <defs>
+    <linearGradient id="pbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101018"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </linearGradient>
+    <linearGradient id="pgold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFB347"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="320" rx="12" fill="url(#pbg)"/>
+  <rect x="0" y="0" width="640" height="2" fill="url(#pgold)" opacity="0.8"/>
+  <text x="320" y="155" text-anchor="middle" font-family="'JetBrains Mono', system-ui, sans-serif" font-size="18" fill="#b0b0c0">演示动图 / Demo GIF 占位</text>
+  <text x="320" y="185" text-anchor="middle" font-family="'JetBrains Mono', system-ui, sans-serif" font-size="13" fill="#00B4A0">Coming Soon</text>
+</svg>

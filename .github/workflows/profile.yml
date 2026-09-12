@@ -1,0 +1,152 @@
+# .github/workflows/profile.yml
+# GitHub Actions 自动部署工作流：每日更新 Profile README 中的实时数据
+# 说明：
+#   - 每天北京时间 08:00（UTC 00:00）自动触发一次
+#   - 支持手动触发（workflow_dispatch），方便调试
+#   - 使用默认的 GITHUB_TOKEN，无需额外配置 Secrets
+#   - 所有更新自动提交并推送回当前仓库
+
+name: Profile README Auto Update
+
+on:
+  # schedule: 定时触发， cron 语法，此处为 UTC 00:00（北京时间 08:00）
+  schedule:
+    - cron: "0 0 * * *"
+  # workflow_dispatch: 允许从 Actions 页面手动触发
+  workflow_dispatch:
+
+# 权限配置：授予 Actions 对仓库内容的读写权限，用于自动提交
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    # 运行环境：GitHub 提供的最新 Ubuntu 虚拟机
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码（fetch-depth: 0 保留完整历史，便于统计 streak/heatmap）
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. 设置 Node.js 环境（后续如需脚本读取 API 或生成 SVG 时使用）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 3. 配置 Git 用户名与邮箱（用于自动提交）
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      # 4. 生成访客计数 SVG（使用 shields.io 风格的本地 SVG）
+      #    实际生产环境可替换为真实计数服务；此处用随机数 + 日期模拟增长
+      - name: Generate visitor count
+        run: |
+          VISITORS=$(( $(date +%j) * 12 + $(date +%H) * 7 + 1024 ))
+          sed -i "s/>REPLACE</>${VISITORS}</g" assets/visitor-count.svg
+
+      # 5. 写入动态问候语（根据当前 UTC 小时判断早/中/晚）
+      - name: Update greeting
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" -lt 11 ]; then
+            GREETING="🌅 早安，愿你今天写出优雅的代码"
+          elif [ "$HOUR" -lt 17 ]; then
+            GREETING="☀️ 午安，保持专注与创造"
+          else
+            GREETING="🌙 晚安，感谢今天又贡献了一行代码"
+          fi
+          # 使用占位符替换 README 中的问候行，注意保留 HTML 注释标记
+          sed -i "s|<h3>.*</h3>|<h3><img src=\"https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif\" width=\"22\"/> ${GREETING}</h3>|" README.md
+
+      # 6. 拉取项目 Star/Fork 数据并更新 README 项目表格
+      #    使用 GitHub API 查询用户公开仓库，按更新时间排序，选取前 3 个
+      - name: Update project stats
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          # 调用 GitHub API 获取仓库列表
+          REPOS=$(curl -s -H "Authorization: ******" \
+            "https://api.github.com/users/$USERNAME/repos?sort=updated&per_page=3")
+
+          # 清空旧表格内容，只保留表头
+          awk '
+            /<!-- AUTO-UPDATE: project-stats-start -->/{flag=1; print; print ""; print "<div align=\"center\">"; print ""; print "| Project | Value Proposition | Tech Stack | Stars / Forks | Preview |"; print "|---------|-------------------|------------|---------------|---------|"; next}
+            /<!-- AUTO-UPDATE: project-stats-end -->/{flag=0; print ""; print "</div>"; print ""; print $0; next}
+            flag{next}
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+          # 将 JSON 解析为 Markdown 表格行并插入到结束标记之前
+          ROWS=$(echo "$REPOS" | node -e '
+            const repos = JSON.parse(require("fs").readFileSync(0, "utf-8"));
+            const langColors = {
+              Swift: "FA7343", HTML: "E34F26", JavaScript: "F7DF1E",
+              Kotlin: "7F52FF", Java: "ED8B00", Python: "3776AB",
+              TypeScript: "3178C6", Go: "00ADD8", CSS: "1572B6",
+              null: "808080"
+            };
+            const valueMap = {
+              "bixel-native": "原生 iOS 像素艺术体验，把复古创作带上移动端。",
+              "Skills": "交互式个人技能展示页，让能力像画廊一样被看见。",
+              "Inventory_Client": "现代化库存管理客户端，简洁高效的业务前端。",
+              "react-learning": "React 学习笔记与实战案例集合。",
+              "Trade": "简洁直观的交易信息展示页面。",
+              "example_plugin": "Kotlin 插件示例工程。",
+              "codespaces-react": "基于 GitHub Codespaces 的 React 模板。"
+            };
+            repos.forEach(r => {
+              const lang = r.language || "Other";
+              const color = langColors[r.language] || "808080";
+              const value = valueMap[r.name] || (r.description || "持续迭代中的开源项目");
+              const tech = `![${lang}](https://img.shields.io/badge/${encodeURIComponent(lang).replace(/-/g, "%2D")}-${color}?style=flat&logo=${(r.language || "github").toLowerCase()}&logoColor=white)`;
+              console.log(`| <b><a href=\"${r.html_url}\">${r.name}</a></b> | ${value} | ${tech} | ⭐ ${r.stargazers_count} · 🍴 ${r.forks_count} | <img src=\"./assets/project-placeholder.svg\" width=\"180\"/> |`);
+            });
+          ')
+
+          # 将生成的行插入到 end marker 之前
+          awk -v rows="$ROWS" '
+            /<!-- AUTO-UPDATE: project-stats-end -->/{
+              print rows
+            }
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      # 7. 更新最新动态区块（列出最近 3 次提交，形成时间线感）
+      - name: Update latest activity
+        env:
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          COMMITS=$(git log --all --author="$USERNAME" --pretty=format:"%h|%s|%ad" --date=short -3)
+          ACTIVITY=$(echo "$COMMITS" | awk -F'|' '
+            {
+              msg=$2; date=$3;
+              # 如果提交信息过长，截断并加省略号
+              if (length(msg) > 55) msg = substr(msg, 1, 52) "...";
+              print "- 🚀 " date " — " msg
+            }
+          ')
+          # 替换 latest-activity 区块内容
+          awk -v activity="$ACTIVITY" '
+            /<!-- AUTO-UPDATE: latest-activity-start -->/{flag=1; print; print ""; print activity; next}
+            /<!-- AUTO-UPDATE: latest-activity-end -->/{flag=0; print $0; next}
+            flag{next}
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      # 8. 检查是否有变更，若有则自动提交并推送
+      - name: Commit and push changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add README.md assets/visitor-count.svg
+            git commit -m "chore: auto-update profile stats [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
