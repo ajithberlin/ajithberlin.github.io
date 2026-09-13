@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ajithberlin.github.io/sitemap.xml

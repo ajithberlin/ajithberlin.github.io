@@ -1,0 +1,15 @@
+{
+  "name": "ajith-berlin-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync": "node scripts/sync-github.mjs",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": { "astro": "7.3.2" },
+  "engines": { "node": ">=22.12.0" }
+}
