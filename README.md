@@ -9,7 +9,7 @@
 
   <!-- Greeting -->
   <!-- AUTO-UPDATE: greeting -->
-  <h3><img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="22"/> 🌙 Good evening — thanks for contributing a line today</h3>
+  <h3><img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="22"/> 🌅 Good morning — may your code stay elegant today</h3>
 
   <!-- Visitor count -->
   <!-- AUTO-UPDATE: visitor-count -->
