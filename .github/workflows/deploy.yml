@@ -2,10 +2,6 @@ name: Build and deploy portfolio
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
-  schedule:
-    - cron: '17 1 * * *'
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,7 +20,6 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: Refresh public repository data
-        if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run sync
@@ -33,7 +28,7 @@ jobs:
         with:
           path: dist
   deploy:
-    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     permissions:
