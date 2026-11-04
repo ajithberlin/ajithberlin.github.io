@@ -662,43 +662,167 @@ button {
   color: var(--accent);
 }
 
-/* Timeline Minimal List */
+/* Timeline Minimal List & Detailed Experience Bento */
 .timeline-card {
-  grid-column: span 6;
+  grid-column: span 12;
 }
 
-.timeline-mini-list {
+.exp-filter-bar {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 
-.t-item {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
+.exp-filter-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
   background: var(--surface-hover);
   border: 1px solid var(--border);
-  font-size: 12px;
-}
-
-.t-item-left strong {
-  display: block;
-  font-size: 12px;
-  font-weight: 650;
-}
-
-.t-item-left small {
-  font-size: 10px;
   color: var(--text-muted);
+  transition: all 0.15s ease;
 }
 
-.t-item-right {
-  font-size: 10px;
+.exp-filter-btn:hover, .exp-filter-btn.active {
+  background: var(--surface-active);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.exp-bento-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+
+.exp-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+}
+
+.exp-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.exp-company-group {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.exp-company-group h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.exp-role-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.exp-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-dim);
+}
+
+.exp-impact-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.exp-impact-item {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exp-impact-item::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.exp-points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-points-list li {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 18px;
+}
+
+.exp-points-list li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.exp-points-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.exp-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.exp-tag {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
 }
 
 /* Stack Chips Matrix */

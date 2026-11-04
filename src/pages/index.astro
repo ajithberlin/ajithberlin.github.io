@@ -26,11 +26,103 @@ const techChips = [
   { name: 'FastAPI', cat: 'lang' }
 ];
 
-const timelineEntries = [
-  { company: 'Base Camp Digital', role: 'Middleware Engineer', period: '2025–Present', note: 'RHBK Keycloak & AI Workflows' },
-  { company: 'Percept Solutions', role: 'Software Engineer', period: '2023–2025', note: '200K+ Users · SAML 2.0 · AWS' },
-  { company: 'Zoho Corporation', role: 'Member Technical Staff', period: '2020–2023', note: 'Endpoint Central · 35+ Releases' },
-  { company: 'Anna University', role: 'B.Tech (Honours)', period: '2016–2020', note: 'CGPA 8.42 · Tech President' }
+const detailedExperience = [
+  {
+    id: 'basecamp',
+    company: 'Base Camp Digital',
+    role: 'Middleware Engineer',
+    period: 'June 2025 – Present',
+    location: 'Singapore',
+    badge: 'Enterprise Middleware & AI',
+    metrics: ['20+ Enterprise Clients', '2 Realms Topologies', 'Zero-Downtime Migration', 'Agentic AI Enablement'],
+    highlights: [
+      {
+        title: 'Enterprise Keycloak Migration',
+        text: 'Spearheaded end-to-end migration from Red Hat SSO (RHSSO) to Red Hat Build of Keycloak (RHBK), managing 20+ enterprise RHBK clients across dual-realm topologies.'
+      },
+      {
+        title: 'Production Infrastructure Maintenance',
+        text: 'Handled mission-critical middleware maintenance and L2/L3 production support tickets, diagnosing distributed system issues with zero unplanned service disruption.'
+      },
+      {
+        title: 'Internal AI Enablement & Training',
+        text: 'Collaborated cross-functionally to support colleagues with legacy Crystal Reports module stability and led internal AI enablement and agentic workflow training to accelerate engineering productivity.'
+      }
+    ],
+    tags: ['Keycloak RHBK', 'Red Hat SSO', 'Java / Spring Boot', 'Crystal Reports', 'Agentic Workflows', 'Enterprise Middleware']
+  },
+  {
+    id: 'percept',
+    company: 'Percept Solutions',
+    role: 'Software Engineer',
+    period: 'May 2023 – May 2025',
+    location: 'Singapore',
+    badge: 'Cloud IAM & FinTech Architecture',
+    metrics: ['200K+ Active Users', '12+ Enterprise Clients', '4 AWS Environments', 'SAML 2.0 (Singpass / Corppass)', '+40% CSAT', 'UOB Multi-Million Banking Flow'],
+    highlights: [
+      {
+        title: 'Comprehensive Red Hat SSO / IAM',
+        text: 'Managed comprehensive RedHat SSO IAM solution across multi-environment AWS EC2 instances (Dev, UAT, STG, Prod), serving 12+ enterprise clients and 200K+ users. Resolved daily L2/L3 support tickets covering service accounts, client onboarding, IdP integration, custom UI development, and identity lifecycle. Implemented Keycloak customizations boosting customer satisfaction by 40%.'
+      },
+      {
+        title: 'Branded Interfaces & National SAML 2.0 Integration',
+        text: 'Designed and deployed branded login/signup/account interfaces across all environments while maintaining consistent client branding standards. Successfully engineered SAML 2.0 integrations with internal Azure SSO and external Singapore national identity providers (Singpass & Corppass), ensuring seamless authentication workflows.'
+      },
+      {
+        title: 'Security Hardening & Version Upgrade',
+        text: 'Led critical security initiatives including Content Security Policy (CSP) vulnerability remediation and zero-trust patch implementations with direct Red Hat support. Successfully orchestrated version upgrade from RH SSO 6.5 to 7.x with minimal downtime.'
+      },
+      {
+        title: 'AWS Banking Core & Microservices',
+        text: 'Deployed robust AWS cloud solution with 4 microservices and 2 React portals, featuring UOB bank integration for seamless multi-million dollar transactions across FAST, PAYNOW, GIRO, and MEPS. Managed 10 user roles, integrated critical BPM flows with Business Central for external auditing, and implemented comprehensive audit telemetry.'
+      },
+      {
+        title: 'Performance Testing Automation',
+        text: 'Developed robust testing and automation scripts using Apache JMeter for performance validation, throughput verification, and pre-deployment benchmark sign-offs.'
+      }
+    ],
+    tags: ['AWS EC2', 'Keycloak RHSSO', 'SAML 2.0', 'Singpass & Corppass', 'Azure SSO', 'UOB Banking APIs', 'FAST / PAYNOW', 'React.js', 'JMeter', 'Business Central']
+  },
+  {
+    id: 'zoho',
+    company: 'Zoho Corporation',
+    role: 'Member Technical Staff',
+    period: 'July 2020 – April 2023',
+    location: 'Chennai, India',
+    badge: 'Enterprise Endpoint Suite',
+    metrics: ['35+ Feature Releases', '3 Core Modules', '350+ L4 Tickets Solved', '120+ Advisory Sessions', '15+ Daily Escalations'],
+    highlights: [
+      {
+        title: 'Core Endpoint Central Engineering',
+        text: 'Led 35+ high-impact feature releases for Zoho’s flagship Endpoint Central enterprise management suite, managing core development through release cycles across 3 primary software distribution modules.'
+      },
+      {
+        title: 'L4 Technical Escalation & Resolution',
+        text: 'Provided highest-tier L4 diagnostic investigations via detailed documentation, call consultations, and remote desktop sessions, successfully resolving 350+ complex enterprise client issues and conducting 120+ technical consultations, significantly improving customer satisfaction and team resolution velocity.'
+      }
+    ],
+    tags: ['Java', 'Spring Framework', 'Endpoint Central', 'Distributed Systems', 'L4 Escalation', 'System Diagnostics', 'Performance Optimization']
+  },
+  {
+    id: 'anna',
+    company: 'Anna University, Chennai',
+    role: 'B.Tech (Honours)',
+    period: '2016 – 2020',
+    location: 'Chennai, India',
+    badge: 'Faculty of Technology · CGPA 8.42',
+    metrics: ['CGPA: 8.42 (Honours)', 'President Student Quality Council', 'Mentored 150+ Engineers'],
+    highlights: [
+      {
+        title: 'Student Quality Council President',
+        text: 'Elected President of the Student Quality Council (Mar 2018 – Mar 2020): Led and mentored 150+ engineering students in organizing technical symposiums, hackathons, and institutional quality improvement events.'
+      },
+      {
+        title: 'Foundational Computer Science Honours',
+        text: 'Deep theoretical and laboratory foundations in distributed computer systems, network protocols, operating systems internals, algorithms, and database architecture.'
+      }
+    ],
+    tags: ['Algorithms', 'Distributed Systems', 'Computer Architecture', 'Network Protocols', 'Database Theory']
+  }
 ];
 ---
 
@@ -328,37 +420,73 @@ const timelineEntries = [
         </div>
       </section>
 
-      <!-- History & Tech Stack (Compact UI Bento) -->
+      <!-- Detailed Engineering Experience -->
       <section class="bento-grid" id="experience">
-        <!-- History Timeline -->
         <div class="bento-card timeline-card">
           <div class="card-top">
-            <span class="card-label">Engineering History</span>
-            <span class="card-badge">Singapore & India</span>
+            <span class="card-label">Engineering Track Record</span>
+            <span class="card-badge">Singapore & Global</span>
           </div>
 
-          <div class="timeline-mini-list">
-            {timelineEntries.map(e => (
-              <div class="t-item">
-                <div class="t-item-left">
-                  <strong>{e.company}</strong>
-                  <small>{e.role} · {e.note}</small>
+          <!-- Interactive Company Filter Tabs -->
+          <div class="exp-filter-bar" id="exp-filter-bar">
+            <button class="exp-filter-btn active" data-filter="all">All Experience (4)</button>
+            <button class="exp-filter-btn" data-filter="basecamp">Base Camp Digital</button>
+            <button class="exp-filter-btn" data-filter="percept">Percept Solutions</button>
+            <button class="exp-filter-btn" data-filter="zoho">Zoho Corporation</button>
+            <button class="exp-filter-btn" data-filter="anna">Anna University</button>
+          </div>
+
+          <!-- Detailed Bento Cards -->
+          <div class="exp-bento-list" id="exp-bento-list">
+            {detailedExperience.map((item) => (
+              <div class="exp-card" data-exp-id={item.id}>
+                <div class="exp-header-row">
+                  <div class="exp-company-group">
+                    <h3>{item.company}</h3>
+                    <span class="exp-role-tag">{item.role}</span>
+                  </div>
+                  <div class="exp-meta-row">
+                    <span>{item.location}</span>
+                    <span>·</span>
+                    <span>{item.period}</span>
+                    <span class="card-badge">{item.badge}</span>
+                  </div>
                 </div>
-                <span class="t-item-right">{e.period}</span>
+
+                <div class="exp-impact-banner">
+                  {item.metrics.map((m) => (
+                    <span class="exp-impact-item">{m}</span>
+                  ))}
+                </div>
+
+                <ul class="exp-points-list">
+                  {item.highlights.map((h) => (
+                    <li>
+                      <strong>{h.title}:</strong> {h.text}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="exp-tech-tags">
+                  {item.tags.map((t) => (
+                    <span class="exp-tag">{t}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         <!-- Stack Matrix -->
-        <div class="bento-card stack-card">
+        <div class="bento-card timeline-card">
           <div class="card-top">
-            <span class="card-label">Production Stack</span>
-            <span class="card-badge">Verified</span>
+            <span class="card-label">Production Technologies</span>
+            <span class="card-badge">Daily Mastery</span>
           </div>
 
           <div class="stack-chips-grid">
-            {techChips.map(c => (
+            {techChips.map((c) => (
               <span class="tech-chip">{c.name}</span>
             ))}
           </div>
@@ -490,6 +618,22 @@ const timelineEntries = [
 
       document.getElementById('copy-quick-email')?.addEventListener('click', () => copyEmail('copy-quick-email', 'copy-dock-text'));
       document.getElementById('copy-action-btn')?.addEventListener('click', () => copyEmail('copy-action-btn', 'copy-action-text'));
+
+      // Experience Filter Tabs
+      const expFilterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.exp-filter-btn'));
+      const expCards = Array.from(document.querySelectorAll<HTMLElement>('.exp-card'));
+
+      expFilterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          expFilterBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter || 'all';
+          expCards.forEach((card) => {
+            const expId = card.dataset.expId;
+            card.style.display = filter === 'all' || expId === filter ? 'flex' : 'none';
+          });
+        });
+      });
 
       // Theme toggle
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
