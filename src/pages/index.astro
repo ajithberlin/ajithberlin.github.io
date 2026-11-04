@@ -8,133 +8,30 @@ const repos = snapshot.repos
 
 const originals = repos.filter(r => !r.fork && !r.archived);
 
-const featuredProjects = [
-  {
-    title: 'OpenBixel',
-    badge: 'CREATIVE ENGINE & WEB TOOLKIT',
-    lead: 'Open-source pixel art and sprite animation studio on the web.',
-    description: 'A responsive web canvas for sprite creation, pixel animation timelines, and tilemap export — engineered with modern web standards and zero bloat.',
-    class: 'openbixel',
-    liveUrl: 'https://alphberlin.github.io/openbixel/',
-    repoUrl: 'https://github.com/AlphBerlin/openbixel',
-    tags: ['Canvas API', 'TypeScript', 'Pixel Art', 'Game Dev', 'Web App']
-  },
-  {
-    title: 'LangCity',
-    badge: 'AI-POWERED LANGUAGE LEARNING RPG',
-    lead: 'A living pixel-art city driven by adaptive conversational AI.',
-    description: 'Cross-platform RPG built with Flutter, Flame, and Supabase. Characters dynamically adjust vocabulary and dialogue complexity to the player’s fluency in real time.',
-    class: 'langcity',
-    liveUrl: 'https://langcity.alphberlin.com/',
-    repoUrl: 'https://github.com/AlphBerlin/langcity-release',
-    tags: ['Flutter / Flame', 'Agentic Dialogue', 'Supabase', 'RevenueCat Shipaton']
-  },
-  {
-    title: 'Local AI Kit',
-    badge: 'ON-DEVICE INTELLIGENCE RUNTIME',
-    lead: 'Private, quantized intelligence directly on client hardware.',
-    description: 'Unified Flutter API bridging on-device quantized LLMs (GGUF), Silero Voice Activity Detection, Whisper speech-to-text, and local neural voice synthesis with zero cloud reliance.',
-    class: 'localai',
-    liveUrl: 'https://alphberlin.github.io/local_ai_kit/',
-    repoUrl: 'https://github.com/AlphBerlin/local_ai_kit',
-    tags: ['On-Device AI', 'ONNX Runtime', 'Flutter FFI', 'Privacy First']
-  }
+const techChips = [
+  { name: 'Gemini 2.5', cat: 'ai' },
+  { name: 'Claude 3.5', cat: 'ai' },
+  { name: 'DeepSeek R1', cat: 'ai' },
+  { name: 'Llama 3.3', cat: 'ai' },
+  { name: 'ONNX Runtime', cat: 'ai' },
+  { name: 'Silero VAD', cat: 'ai' },
+  { name: 'Keycloak RHBK', cat: 'cloud' },
+  { name: 'AWS & GCP', cat: 'cloud' },
+  { name: 'SAML 2.0 / OIDC', cat: 'cloud' },
+  { name: 'Swift & Metal', cat: 'lang' },
+  { name: 'Rust C-ABI', cat: 'lang' },
+  { name: 'Flutter & Dart', cat: 'lang' },
+  { name: 'TypeScript', cat: 'lang' },
+  { name: 'Python & PyTorch', cat: 'lang' },
+  { name: 'FastAPI', cat: 'lang' }
 ];
 
-const civicProjects = [
-  { name: 'waterbody-atlas', title: 'Waterbody Atlas', description: 'Cataloging water bodies to make conservation and ecological data transparently discoverable.' },
-  { name: 'transit', title: 'Transit', description: 'Open public transit routing and schedule schemas for urban connectivity.' },
-  { name: 'nanayam', title: 'Nanayam', description: 'Open public finance and civic procurement transparency tooling.' }
+const timelineEntries = [
+  { company: 'Base Camp Digital', role: 'Middleware Engineer', period: '2025–Present', note: 'RHBK Keycloak & AI Workflows' },
+  { company: 'Percept Solutions', role: 'Software Engineer', period: '2023–2025', note: '200K+ Users · SAML 2.0 · AWS' },
+  { company: 'Zoho Corporation', role: 'Member Technical Staff', period: '2020–2023', note: 'Endpoint Central · 35+ Releases' },
+  { company: 'Anna University', role: 'B.Tech (Honours)', period: '2016–2020', note: 'CGPA 8.42 · Tech President' }
 ];
-
-const coreLanguages = [
-  {
-    name: 'Swift',
-    category: 'Native & Apple Systems',
-    experience: 'Expert · 5+ yrs',
-    description: 'High-performance Apple applications, SwiftUI, low-overhead C-ABI bridging to native Rust engines, and smooth 120 FPS graphics.',
-    tags: ['SwiftUI', 'AppKit / UIKit', 'Rust FFI', 'Metal Graphics', 'Concurrency'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><path fill="#f05138" d="M12.4 92.6c13.7 18.2 38.6 30.2 66.8 28.5-8.7-6.2-16.1-13.8-21.7-22.3-12.7-19.4-13.4-38.6-2.5-57.9C36.8 60 21.6 77.2 12.4 92.6zm66.1-71.1c2 5.1 1.7 11.2-1.2 16.9-4.8 9.3-14.7 15.6-24.9 18.7 10.7-6.8 19.3-17.6 22.8-29.8 1.1-3.6 2.1-5.9 3.3-5.8zm39.1 82c-1.8 1.9-3.9 3.7-6.1 5.3C96.3 80.8 77.7 54.3 54.7 41.5c-4.4-2.5-8.9-4.6-13.4-6.3 6.9-3.4 14.8-5 22.8-4.4C87 32.7 107.5 49.3 117.6 103.5zm7.8 7.3c-.6.7-1.3 1.3-2 2-25.1 27.5-68.9 20.3-95.2-14.3 22.4 11.4 49.7 12.9 73.1 3.5 10.8-4.4 20-11.8 27.5-20.9 2 4.4 2.8 9.7-3.4 29.7z"/></svg>`
-  },
-  {
-    name: 'Rust',
-    category: 'Systems & Compute',
-    experience: 'Advanced · 3+ yrs',
-    description: 'Zero-cost abstractions, deterministic low-latency compute kernels, memory-safe data structures, and cross-platform native libraries.',
-    tags: ['Systems Programming', 'C-ABI FFI', 'Memory Safety', 'Concurrency'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><path fill="#dea584" d="M117.7 63.8l-7.7-4.1.8-8.7 8.7-.9-3.3-8.1-8.5 2-2-8.5 7.7-4.2-5.3-7-7.4 4.7-4.7-7.4 5.9-6.5-6.9-5.4-5.6 6.7-6.9-5.4 3.7-8-8 3.5-3.8-7.9-8.7 1 .9 8.7-8.7-1-1.1 8.7-8.5-2-3.3 8.1 8.7.9.8 8.7-7.7 4.1 4.2 7.7-7.7 4.2 5.3 7 7.4-4.7 4.7 7.4-5.9 6.5 6.9 5.4 5.6-6.7 6.9 5.4-3.7 8 8-3.5 3.8 7.9 8.7-1-.9-8.7 8.7 1 1.1-8.7 8.5 2 3.3-8.1-8.7-.9-.8-8.7 7.7-4.1-4.2-7.7zM64 108.5c-24.6 0-44.5-19.9-44.5-44.5S39.4 19.5 64 19.5s44.5 19.9 44.5 44.5-19.9 44.5-44.5 44.5zm-8.8-70.1H41.5v51.2h13.7V75.8h7.9l12 13.8h17.4L77.4 73.4c6.3-2.6 10.5-8.5 10.5-16 0-11.4-8.8-19-22.7-19zm0 24.6h-5.2V48.5h5.2c5.4 0 9.1 2.9 9.1 7.3s-3.7 7.2-9.1 7.2z"/></svg>`
-  },
-  {
-    name: 'TypeScript & Node',
-    category: 'Full-Stack Web & Platforms',
-    experience: 'Staff-level · 6+ yrs',
-    description: 'Resilient web apps, compile-time type safety, Astro static architectures, Next.js platforms, and secure REST/GraphQL services.',
-    tags: ['Astro', 'Next.js', 'React', 'Node.js', 'Type Safety', 'Web Standards'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><rect width="128" height="128" rx="16" fill="#3178c6"/><path fill="#fff" d="M68.8 84.7c1.6 9.6 10.3 14.8 22.4 14.8 11.2 0 20.3-5 20.3-15.6 0-10.2-7.3-13.6-18.7-18.2l-4.5-1.8c-7.9-3.2-11.4-6.3-11.4-12 0-6.1 5.2-10.4 13.6-10.4 8.7 0 13.9 4.1 15.5 11.6l12.8-5.3C116 34.6 104.9 28 90.9 28c-15.9 0-26.6 8.7-26.6 22.4 0 9.6 6.3 14.4 17.5 18.9l4.5 1.8c8.8 3.5 13.1 6.5 13.1 13 0 7-6.5 10.9-15.6 10.9-10.4 0-16.7-5.5-18.3-14.1l-16.7 3.8zM42.3 43.1H58V29.5H11.2v13.6h15.7v70.7h15.4V43.1z"/></svg>`
-  },
-  {
-    name: 'Dart & Flutter',
-    category: 'Multiplatform Client Architecture',
-    experience: 'Lead-level · 4+ yrs',
-    description: 'Cross-platform architectures shipping across iOS, Android, macOS, Web, and Desktop. Custom canvas trees and native on-device AI wrappers.',
-    tags: ['Flutter', 'State Machines', 'Native Plugins', 'Multiplatform', 'Flame Game Engine'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><path fill="#02569b" d="M72.2 1.5L13.7 60l18.3 18.3L108.8 1.5H72.2z"/><path fill="#0175c2" d="M108.8 69.1H72.2L45.4 95.9l18.3 18.3 45.1-45.1z"/><path fill="#13b9fd" d="M63.7 114.2l18.3 18.3h36.6L82 95.9l-18.3 18.3z"/></svg>`
-  },
-  {
-    name: 'Python',
-    category: 'AI, Audio DSP & Microservices',
-    experience: 'Advanced · 4+ yrs',
-    description: 'Neural voice synthesis pipelines, Supertone/Supertonic cloning, FastAPI streaming backends, ONNX model graph export, and agent orchestration.',
-    tags: ['PyTorch', 'ONNX Export', 'FastAPI / ASGI', 'Voice Synthesis', 'Audio DSP'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><path fill="#3776ab" d="M63.7 2c-31.5 0-29.5 13.6-29.5 13.6l.03 14.1h30v4.2H21.8S2 31.7 2 63.4c0 31.7 17.3 30.6 17.3 30.6h10.3V80.1s-.6-17.3 17.1-17.3h29.4s16.5.3 16.5-16.1V18.1S94.9 2 63.7 2zm-16.3 9.4c3.1 0 5.6 2.5 5.6 5.6s-2.5 5.6-5.6 5.6-5.6-2.5-5.6-5.6 2.5-5.6 5.6-5.6z"/><path fill="#ffd343" d="M64.3 126c31.5 0 29.5-13.6 29.5-13.6l-.03-14.1h-30v-4.2h42.4s19.8 2.2 19.8-29.5c0-31.7-17.3-30.6-17.3-30.6H98.4v13.9s.6 17.3-17.1 17.3H51.9s-16.5-.3-16.5 16.1v28.6s-2.3 16.1 28.9 16.1zm16.3-9.4c-3.1 0-5.6-2.5-5.6-5.6s2.5-5.6 5.6-5.6 5.6 2.5 5.6 5.6-2.5 5.6-5.6 5.6z"/></svg>`
-  },
-  {
-    name: 'Java & Cloud IAM',
-    category: 'Enterprise Middleware & Security',
-    experience: 'Senior · 5+ yrs',
-    description: 'Keycloak / Red Hat Build of Keycloak (RHBK) core extensions, SAML 2.0 / OIDC integrations with Singpass & Corppass, Spring Boot, and cloud IAM.',
-    tags: ['Keycloak RHBK', 'RHSSO', 'AWS / GCP / Azure', 'Spring Boot', 'SAML 2.0 / OIDC'],
-    logo: `<svg viewBox="0 0 128 128" width="24" height="24" fill="none"><path fill="#e76f00" d="M46.7 96.2c0 1.2 1 2.2 2.2 2.2h30.2c1.2 0 2.2-1 2.2-2.2v-1.7H46.7v1.7zm1.1-23.7h30.2c1.2 0 2.2-1 2.2-2.2v-1.7H45.6v1.7c0 1.2 1 2.2 2.2 2.2zm-2.2-12.8h34.6v-1.7c0-1.2-1-2.2-2.2-2.2H47.8c-1.2 0-2.2 1-2.2 2.2v1.7z"/><path fill="#5382a1" d="M64 4c-33.1 0-60 26.9-60 60s26.9 60 60 60 60-26.9 60-60-26.9-60-60-60zm0 108c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg>`
-  }
-];
-
-const experienceList = [
-  {
-    company: 'Base Camp Digital',
-    role: 'Middleware Engineer',
-    period: 'June 2025 – Present',
-    location: 'Singapore',
-    highlights: [
-      'Spearheaded enterprise migration from Red Hat SSO (RHSSO) to Red Hat Build of Keycloak (RHBK), managing 20+ enterprise clients across multi-realm topologies.',
-      'Maintained mission-critical identity infrastructure with zero unplanned downtime, resolving production support incidents across distributed architectures.',
-      'Led internal AI enablement and agentic workflow training, accelerating cross-functional engineering productivity and establishing safe tool-use protocols.'
-    ]
-  },
-  {
-    company: 'Percept Solutions',
-    role: 'Software Engineer',
-    period: 'May 2023 – May 2025',
-    location: 'Singapore',
-    highlights: [
-      'Managed comprehensive RedHat SSO IAM solution across multi-environment AWS EC2 clusters (Dev, UAT, STG, Prod), serving 12+ enterprise clients and 200K+ active users.',
-      'Architected SAML 2.0 and OIDC identity integrations with internal Azure SSO and Singapore national identity providers (Singpass and Corppass).',
-      'Orchestrated version upgrade from RHSSO 6.5 to 7.x with minimal service disruption, driving CSP remediation and enterprise security compliance.',
-      'Engineered an AWS microservices cloud solution with 4 backend services and 2 React portals, integrating UOB bank for multi-million dollar FAST, PAYNOW, GIRO, and MEPS transactions.'
-    ]
-  },
-  {
-    company: 'Zoho Corporation',
-    role: 'Member Technical Staff',
-    period: 'July 2020 – April 2023',
-    location: 'Chennai, India',
-    highlights: [
-      'Led 35+ high-impact feature releases for Endpoint Central enterprise suite, steering core development and maintenance across 3 primary software distribution modules.',
-      'Delivered L4 technical consultations and deep diagnostic investigations, resolving 350+ complex enterprise client issues and conducting 120+ advisory sessions.'
-    ]
-  }
-];
-
-const languagesAvailable = [...new Set(repos.map(r => r.language))].sort();
 ---
 
 <!doctype html>
@@ -142,848 +39,467 @@ const languagesAvailable = [...new Set(repos.map(r => r.language))].sort();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f8f9f5" />
-    <title>Ajith Berlin — Senior Software Engineer & Cloud Security Engineer</title>
-    <meta
-      name="description"
-      content="Portfolio of Ajith Berlin Arul Nayagam. Senior Software Engineer & Certified Professional Cloud Security Engineer based in Singapore. Specializing in secure middleware, on-device AI runtimes, and agentic systems."
-    />
+    <meta name="theme-color" content="#090b0e" />
+    <title>Ajith Berlin — Systems & AI Engineer</title>
+    <meta name="description" content="Senior Software Engineer & Certified Cloud Security Engineer. Minimalist UI for on-device AI runtimes, agentic systems, and secure middleware." />
     <link rel="canonical" href={Astro.site} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:title" content="Ajith Berlin — Senior Software Engineer" />
-    <meta property="og:description" content="Senior Software Engineer & Certified Cloud Security Engineer. Explore production systems, AI architectures, and open-source tooling." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.site} />
-    <meta property="og:image" content={new URL('/social.png', Astro.site)} />
-    <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       try {
         const t = localStorage.getItem('theme');
-        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.dataset.theme = 'dark';
+        if (t === 'light') {
+          document.documentElement.dataset.theme = 'light';
         }
       } catch {}
     </script>
   </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <a class="brand" href="#" aria-label="Ajith Berlin home">
-          <span class="brand-symbol">A</span>
-          <span>ajithberlin<span class="brand-dot">.</span></span>
+    <!-- Subtle Background Ambient Grid -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-ambient" aria-hidden="true"></div>
+
+    <!-- Floating OS Glass Dock -->
+    <header class="dock-header wrap">
+      <nav class="dock" aria-label="Quick Actions">
+        <div class="dock-brand">
+          <span class="dock-status-dot"></span>
+          <span>Ajith Berlin</span>
+        </div>
+
+        <div class="dock-nav">
+          <a class="dock-link" href="#work">Work</a>
+          <a class="dock-link" href="#architecture">Architecture</a>
+          <a class="dock-link" href="#experience">History</a>
+        </div>
+
+        <span class="dock-divider"></span>
+
+        <a class="dock-btn" href="/Ajith_Berlin_Resume.pdf" target="_blank" rel="noopener noreferrer" title="View Resume">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>CV</span>
         </a>
 
-        <nav class="nav-links" aria-label="Main Navigation">
-          <a href="#work">Work</a>
-          <a href="#ai-architecture">AI Architecture</a>
-          <a href="#skills">Skills & Craft</a>
-          <a href="#experience">Experience</a>
-          <a href="#opensource">Open Source</a>
-          <a href="#contact">Contact</a>
-        </nav>
+        <a class="dock-btn" href="/Ajith_Berlin_Resume.pdf" download="Ajith_Berlin_Resume.pdf" title="Download Resume">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
 
-        <div class="header-actions">
-          <div class="resume-group">
-            <a class="resume-btn" href="/Ajith_Berlin_Resume.pdf" target="_blank" rel="noopener noreferrer" title="View Resume PDF in new tab">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <span>View CV</span>
-            </a>
-            <span class="resume-divider"></span>
-            <a class="resume-btn" href="/Ajith_Berlin_Resume.pdf" download="Ajith_Berlin_Resume.pdf" title="Download Resume PDF">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Download</span>
-            </a>
-          </div>
+        <button id="copy-quick-email" class="dock-btn" title="Copy Email">
+          <svg id="copy-dock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copy-dock-text">Email</span>
+        </button>
 
-          <button id="theme-btn" class="icon-btn" aria-label="Toggle light/dark theme" title="Toggle theme">
-            <svg id="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            <svg id="sun-icon" style="display:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </button>
-
-          <a class="contact-nav-btn" href="mailto:ajithberlin10@gmail.com">
-            <span>Get in touch</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
-        </div>
-      </div>
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme" title="Toggle Theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </nav>
     </header>
 
-    <main id="main">
-      <!-- Hero -->
-      <section class="hero wrap">
-        <div class="hero-grid">
-          <div class="hero-copy animate-in">
-            <div class="hero-badge">
-              <span class="pulse-indicator"></span>
-              <span>Senior Software Engineer · Professional Cloud Security Engineer (Certified)</span>
-            </div>
-
-            <h1 class="hero-title">
-              Architecting secure systems,<br />
-              <span class="serif">on-device intelligence,</span> & craft.
-            </h1>
-
-            <p class="hero-lead">
-              Hi, I’m Ajith Berlin. I engineer enterprise-grade middleware, on-device AI runtimes, and open web tools. Grounded in cloud security, deterministic systems, and quiet craftsmanship.
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#ai-architecture">
-                <span>Explore AI Architecture</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </a>
-
-              <a class="btn btn-secondary" href="/Ajith_Berlin_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                <span>View Resume</span>
-              </a>
-
-              <a class="btn btn-secondary" href="/Ajith_Berlin_Resume.pdf" download="Ajith_Berlin_Resume.pdf">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span>Download CV</span>
-              </a>
-            </div>
-
-            <div class="hero-trust">
-              <span class="trust-item">Singapore</span>
-              <span class="trust-dot"></span>
-              <span class="trust-item">Base Camp Digital</span>
-              <span class="trust-dot"></span>
-              <span class="trust-item">Ex-Percept & Zoho</span>
-              <span class="trust-dot"></span>
-              <a class="trust-item" href="https://github.com/ajithberlin" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">GitHub Profile</a>
-              <span class="trust-dot"></span>
-              <a class="trust-item" href="https://linkedin.com/in/ajithberlin/" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">LinkedIn</a>
-            </div>
+    <main class="wrap">
+      <!-- Top Bento Section -->
+      <section class="bento-grid">
+        <!-- Hero Cell -->
+        <div class="bento-card hero-main">
+          <div class="card-label">
+            <span class="dock-status-dot"></span>
+            <span>Senior Software Engineer · Singapore</span>
           </div>
 
-          <!-- Hero Architecture Visual -->
-          <div class="hero-visual animate-in">
-            <div class="visual-header">
-              <div class="terminal-dots">
-                <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
-              </div>
-              <span class="visual-title">Production Execution Stack</span>
-            </div>
-
-            <div class="arch-flow-box">
-              <div class="arch-node">
-                <div class="arch-node-left">
-                  <div class="arch-node-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  </div>
-                  <div>
-                    <strong>Cloud Security & Enterprise IAM</strong>
-                    <small>Keycloak RHBK · AWS EC2 · Singpass / Corppass SAML 2.0</small>
-                  </div>
-                </div>
-                <span class="arch-badge">200K+ Users</span>
-              </div>
-
-              <div class="arch-arrow">↓</div>
-
-              <div class="arch-node">
-                <div class="arch-node-left">
-                  <div class="arch-node-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                  </div>
-                  <div>
-                    <strong>Mission-Critical Financial Core</strong>
-                    <small>UOB Bank Integration · FAST, PAYNOW, GIRO, MEPS</small>
-                  </div>
-                </div>
-                <span class="arch-badge">High Availability</span>
-              </div>
-
-              <div class="arch-arrow">↓</div>
-
-              <div class="arch-node">
-                <div class="arch-node-left">
-                  <div class="arch-node-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                  </div>
-                  <div>
-                    <strong>Agentic Orchestration & Tool Gateways</strong>
-                    <small>Model Context Protocol · Multi-Provider Tool Calling</small>
-                  </div>
-                </div>
-                <span class="arch-badge">Gemini / Claude</span>
-              </div>
-
-              <div class="arch-arrow">↓</div>
-
-              <div class="arch-node">
-                <div class="arch-node-left">
-                  <div class="arch-node-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                  </div>
-                  <div>
-                    <strong>On-Device Neural & Native Client Engines</strong>
-                    <small>GGUF / ONNX Quantization · Silero VAD · Swift & Flutter</small>
-                  </div>
-                </div>
-                <span class="arch-badge">&lt;40ms Latency</span>
-              </div>
-            </div>
+          <div class="hero-title-row">
+            <h1 class="hero-name">Ajith Berlin</h1>
           </div>
+
+          <span class="hero-role">Professional Cloud Security Engineer (Certified)</span>
+          <p class="hero-sub">Systems middleware, on-device SLMs, and deterministic agent orchestration.</p>
+
+          <div class="hero-controls">
+            <a class="dock-btn primary" href="mailto:ajithberlin10@gmail.com">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>ajithberlin10@gmail.com</span>
+            </a>
+
+            <a class="dock-btn" href="https://github.com/ajithberlin" target="_blank" rel="noopener noreferrer">
+              <span>GitHub</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+
+            <a class="dock-btn" href="https://linkedin.com/in/ajithberlin/" target="_blank" rel="noopener noreferrer">
+              <span>LinkedIn</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Terminal Simulator -->
+        <div class="bento-card hero-terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
+            </div>
+            <span>agent_runtime.sh</span>
+          </div>
+
+          <div class="terminal-body" id="term-stream">
+            <p><span class="term-cmd">&gt;</span> runtime.init(mode: "deterministic")</p>
+            <p class="term-out">[ok] Keycloak RHBK auth verified</p>
+            <p><span class="term-cmd">&gt;</span> vad.stream(source: "mic_input")</p>
+            <p class="term-out">[ok] Silero VAD speech confirmed (0 cloud egress)</p>
+            <p><span class="term-cmd">&gt;</span> dispatch(tools: ["mcp_router", "onnx_tts"])<span class="term-cursor"></span></p>
+          </div>
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="bento-card metric-card">
+          <span class="card-label">Experience</span>
+          <div class="metric-val">6+ Yrs</div>
+          <span class="metric-desc">Production Systems</span>
+        </div>
+
+        <div class="bento-card metric-card">
+          <span class="card-label">IAM Scale</span>
+          <div class="metric-val">200K+</div>
+          <span class="metric-desc">Enterprise Users</span>
+        </div>
+
+        <div class="bento-card metric-card">
+          <span class="card-label">Security</span>
+          <div class="metric-val">GCP</div>
+          <span class="metric-desc">Certified Security Eng</span>
+        </div>
+
+        <div class="bento-card metric-card">
+          <span class="card-label">Hackathons</span>
+          <div class="metric-val">3x</div>
+          <span class="metric-desc">RevenueCat · Meta · PayPal</span>
         </div>
       </section>
 
-      <!-- Proof Banner -->
-      <section class="proof-banner">
-        <div class="wrap proof-grid">
-          <div class="proof-item">
-            <h3>6+ Years</h3>
-            <p>Production engineering across enterprise distributed systems and client software.</p>
-          </div>
-          <div class="proof-item">
-            <h3>200K+ Users</h3>
-            <p>Enterprise identity and authentication traffic managed via Red Hat Keycloak & AWS.</p>
-          </div>
-          <div class="proof-item">
-            <h3>Certified GCP</h3>
-            <p>Google Cloud Certified Professional Cloud Security Engineer.</p>
-          </div>
-          <div class="proof-item">
-            <h3>3x Hackathon Builder</h3>
-            <p>Active creator across RevenueCat Shipaton, Meta Muse AI, and PayPal Hackathons.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Featured Work -->
-      <section class="section wrap" id="work">
-        <div class="section-head">
+      <!-- Projects Grid (Minimalistic Bento UI) -->
+      <section class="bento-grid" id="work">
+        <!-- OpenBixel -->
+        <div class="bento-card project-bento">
           <div>
-            <p class="section-eyebrow">01 / Selected Work</p>
-            <h2 class="section-title">Built with intention.<br /><span class="serif">Shipped to production.</span></h2>
+            <div class="card-top">
+              <span class="card-label">Web Tool</span>
+              <span class="card-badge">Canvas API</span>
+            </div>
+
+            <!-- Interactive Mini Pixel Canvas -->
+            <div class="interactive-preview-box" id="pixel-box" title="Click or hover to toggle pixels">
+              <div class="pixel-canvas" id="canvas-grid">
+                <!-- 64 pixels generated via script -->
+              </div>
+            </div>
+
+            <div class="project-title-row">
+              <h3>OpenBixel</h3>
+            </div>
+            <p class="project-desc-mini">Web pixel art and sprite animation studio. Built with raw Canvas API and zero dependencies.</p>
           </div>
-          <p class="section-desc">
-            A selection of creative applications, on-device intelligence runtimes, and interactive games built with native craft and modern standards.
-          </p>
+
+          <div class="project-bottom-bar">
+            <a href="https://alphberlin.github.io/openbixel/" target="_blank" rel="noopener noreferrer">
+              <span>Launch Studio</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+            <a href="https://github.com/AlphBerlin/openbixel" target="_blank" rel="noopener noreferrer">Source</a>
+          </div>
         </div>
 
-        <div class="featured-grid">
-          {featuredProjects.map((p) => (
-            <article class:list={['project-card', p.class]}>
-              <div class="project-preview">
-                <span class="preview-badge">{p.badge}</span>
-                <div class="preview-graphic">
-                  {p.class === 'openbixel' && (
-                    <div class="pixel-art-grid">
-                      <span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell"></span>
-                      <span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span>
-                      <span class="px-cell px-active"></span><span class="px-cell px-active"></span><span class="px-cell px-active"></span><span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span>
-                      <span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell"></span>
-                      <span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell px-active"></span><span class="px-cell"></span>
-                      <span class="px-cell"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell"></span><span class="px-cell"></span>
-                    </div>
-                  )}
-                  {p.class === 'langcity' && (
-                    <svg width="120" height="90" viewBox="0 0 120 90" fill="none">
-                      <rect x="10" y="40" width="22" height="45" fill="#759368" opacity="0.6" rx="2"/>
-                      <rect x="36" y="25" width="26" height="60" fill="#5a7b4c" opacity="0.8" rx="2"/>
-                      <rect x="66" y="32" width="22" height="53" fill="#6c8b5e" opacity="0.7" rx="2"/>
-                      <rect x="92" y="48" width="20" height="37" fill="#7d9b6f" opacity="0.5" rx="2"/>
-                      <circle cx="95" cy="20" r="12" fill="#c2dfb2" opacity="0.8"/>
-                    </svg>
-                  )}
-                  {p.class === 'localai' && (
-                    <div class="radar-rings">
-                      <div class="radar-ring"></div>
-                      <div class="radar-ring"></div>
-                      <div class="radar-ring"></div>
-                    </div>
-                  )}
-                </div>
-              </div>
+        <!-- LangCity -->
+        <div class="bento-card project-bento">
+          <div>
+            <div class="card-top">
+              <span class="card-label">AI Game</span>
+              <span class="card-badge">Shipaton</span>
+            </div>
 
-              <div class="project-content">
-                <div class="project-tags">
-                  {p.tags.map((t) => <span>{t}</span>)}
-                </div>
-                <h3>{p.title}</h3>
-                <p>{p.description}</p>
-                <div class="project-links">
-                  <a href={p.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <span>Open Live Application</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                  </a>
-                  <a href={p.repoUrl} target="_blank" rel="noopener noreferrer">
-                    <span>Source</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                  </a>
-                </div>
+            <!-- Audio Waveform Visualizer Preview -->
+            <div class="interactive-preview-box">
+              <div class="wave-bars">
+                <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+                <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+                <span class="w-bar"></span><span class="w-bar"></span>
               </div>
-            </article>
-          ))}
+            </div>
+
+            <div class="project-title-row">
+              <h3>LangCity</h3>
+            </div>
+            <p class="project-desc-mini">Pixel-art Japanese learning RPG with adaptive conversational NPCs. Flutter, Flame & Supabase.</p>
+          </div>
+
+          <div class="project-bottom-bar">
+            <a href="https://langcity.alphberlin.com/" target="_blank" rel="noopener noreferrer">
+              <span>Live Game</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+            <a href="https://github.com/AlphBerlin/langcity-release" target="_blank" rel="noopener noreferrer">Source</a>
+          </div>
+        </div>
+
+        <!-- Local AI Kit -->
+        <div class="bento-card project-bento">
+          <div>
+            <div class="card-top">
+              <span class="card-label">Edge AI</span>
+              <span class="card-badge">ONNX</span>
+            </div>
+
+            <!-- Interactive Quantization Selector -->
+            <div class="interactive-preview-box">
+              <div class="quant-pills">
+                <span class="q-pill active">Q4_K_M</span>
+                <span class="q-pill">Q8_0</span>
+                <span class="q-pill">FP16</span>
+              </div>
+            </div>
+
+            <div class="project-title-row">
+              <h3>Local AI Kit</h3>
+            </div>
+            <p class="project-desc-mini">Private on-device Flutter runtime. Quantized LLMs, Silero VAD, Whisper STT & neural voice.</p>
+          </div>
+
+          <div class="project-bottom-bar">
+            <a href="https://alphberlin.github.io/local_ai_kit/" target="_blank" rel="noopener noreferrer">
+              <span>API Docs</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+            <a href="https://github.com/AlphBerlin/local_ai_kit" target="_blank" rel="noopener noreferrer">Source</a>
+          </div>
         </div>
       </section>
 
-      <!-- Deep Strategic AI & Agentic Architecture Section -->
-      <section class="ai-section" id="ai-architecture">
-        <div class="wrap">
-          <div class="section-head">
+      <!-- Deep Strategic AI Pipeline (Like UI) -->
+      <section class="bento-grid" id="architecture">
+        <div class="bento-card pipeline-card">
+          <div class="card-top">
+            <span class="card-label">AI Pipeline Execution Graph</span>
+            <span class="card-badge">Deterministic Tool Loop</span>
+          </div>
+
+          <!-- Clickable Stage Nodes -->
+          <div class="pipeline-nodes-row" id="pipe-nodes">
+            <button class="pipe-node-btn active" data-idx="0">
+              <div class="pipe-node-top"><span>01</span><span>&lt;15ms</span></div>
+              <strong class="pipe-node-name">Local VAD</strong>
+              <span class="pipe-node-meta">Silero ONNX</span>
+            </button>
+
+            <button class="pipe-node-btn" data-idx="1">
+              <div class="pipe-node-top"><span>02</span><span>Zero-Trust</span></div>
+              <strong class="pipe-node-name">Security Gate</strong>
+              <span class="pipe-node-meta">PII & Budget</span>
+            </button>
+
+            <button class="pipe-node-btn" data-idx="2">
+              <div class="pipe-node-top"><span>03</span><span>Hybrid</span></div>
+              <strong class="pipe-node-name">Model Router</strong>
+              <span class="pipe-node-meta">Edge vs Frontier</span>
+            </button>
+
+            <button class="pipe-node-btn" data-idx="3">
+              <div class="pipe-node-top"><span>04</span><span>Typed</span></div>
+              <strong class="pipe-node-name">MCP Tools</strong>
+              <span class="pipe-node-meta">Pydantic / Zod</span>
+            </button>
+
+            <button class="pipe-node-btn" data-idx="4">
+              <div class="pipe-node-top"><span>05</span><span>Stream</span></div>
+              <strong class="pipe-node-name">Synthesis</strong>
+              <span class="pipe-node-meta">FastAPI & Audio</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Spec HUD -->
+          <div class="pipe-display-pane" id="pipe-display">
             <div>
-              <p class="section-eyebrow">02 / Deep Strategic AI & Agentic Architecture</p>
-              <h2 class="section-title">Bridging Foundation Models<br /><span class="serif">with Deterministic Engineering.</span></h2>
-            </div>
-            <p class="section-desc">
-              AI systems are only as resilient as the architecture surrounding them. Combining on-device quantization, multi-agent tool loops, and enterprise security guardrails.
-            </p>
-          </div>
-
-          <!-- Interactive Pipeline Visualizer -->
-          <div class="ai-pipeline-container">
-            <div class="pipeline-header">
-              <h3>Interactive Agentic Execution Pipeline</h3>
-              <span>Click any stage below to inspect technical specifications</span>
-            </div>
-
-            <div class="pipeline-flow" id="pipeline-flow" role="tablist">
-              <div class="pipeline-step active" data-step="0" role="tab" tabindex="0">
-                <div class="pipeline-step-top">
-                  <span class="step-num">STAGE 01</span>
-                  <div class="step-icon">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                  </div>
-                </div>
-                <strong>Multimodal Intake & VAD</strong>
-                <small>Local Silero VAD, streaming audio buffers, frame capture.</small>
-              </div>
-
-              <div class="pipeline-step" data-step="1" role="tab" tabindex="0">
-                <div class="pipeline-step-top">
-                  <span class="step-num">STAGE 02</span>
-                  <div class="step-icon">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  </div>
-                </div>
-                <strong>Cloud Security & Guardrails</strong>
-                <small>PII sanitization, prompt injection filter, spend quotas.</small>
-              </div>
-
-              <div class="pipeline-step" data-step="2" role="tab" tabindex="0">
-                <div class="pipeline-step-top">
-                  <span class="step-num">STAGE 03</span>
-                  <div class="step-icon">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                  </div>
-                </div>
-                <strong>Model Reasoning & Dispatch</strong>
-                <small>Tiered routing: Edge SLM vs Gemini / Claude / DeepSeek.</small>
-              </div>
-
-              <div class="pipeline-step" data-step="3" role="tab" tabindex="0">
-                <div class="pipeline-step-top">
-                  <span class="step-num">STAGE 04</span>
-                  <div class="step-icon">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                  </div>
-                </div>
-                <strong>MCP Tool Bus & Execution</strong>
-                <small>Deterministic tool sandbox, schema validation, rollbacks.</small>
-              </div>
-
-              <div class="pipeline-step" data-step="4" role="tab" tabindex="0">
-                <div class="pipeline-step-top">
-                  <span class="step-num">STAGE 05</span>
-                  <div class="step-icon">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </div>
-                </div>
-                <strong>Action & Neural Synthesis</strong>
-                <small>Streaming TTS, UI hydration, structured state commit.</small>
-              </div>
-            </div>
-
-            <!-- Dynamic Inspector Box -->
-            <div class="pipeline-detail-box" id="pipeline-detail">
-              <div class="detail-left">
-                <h4 id="detail-title">Stage 01: Multimodal Intake & Voice Activity Detection</h4>
-                <p id="detail-desc">
-                  Captures microphone audio and sensory inputs on the client device. Uses an embedded Silero VAD neural network to discriminate voice activity from ambient noise without transmitting raw audio to external servers.
-                </p>
-                <div class="detail-specs" id="detail-specs">
-                  <span class="spec-chip">Latency: &lt;15ms</span>
-                  <span class="spec-chip">Engine: ONNX Runtime / Flutter FFI</span>
-                  <span class="spec-chip">Privacy: Zero Cloud Egress</span>
-                  <span class="spec-chip">Bandwidth: 0 KB until speech confirmed</span>
-                </div>
-              </div>
-              <div class="detail-right">
-                <pre><code id="detail-code">{`// Local VAD & Streaming Frame Buffer
-final vad = SileroVadEngine(sampleRate: 16000);
-audioStream.listen((chunk) async {
-  final isSpeech = await vad.evaluate(chunk);
-  if (isSpeech) {
-    speechBuffer.append(chunk);
-  } else if (speechBuffer.isNotEmpty) {
-    dispatchToWhisper(speechBuffer.flush());
-  }
-});`}</code></pre>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4 Deep Strategic Architecture Pillars -->
-          <div class="ai-pillars">
-            <div class="ai-pillar-card">
-              <div class="pillar-head">
-                <div class="pillar-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                </div>
-                <div>
-                  <h3>Autonomous Agent Systems & Tool Orchestration</h3>
-                  <span class="pillar-tagline">Deterministic Execution & Tool Use</span>
-                </div>
-              </div>
-              <p>
-                Pioneering multi-agent collaborative workflows where agents don’t hallucinate code — they execute within typed contracts. Leveraging Model Context Protocol (MCP) to bridge LLMs with real production databases, CLI tools, and version control.
+              <strong style="font-size: 13px;" id="pipe-title">01 / Local Voice Activity Detection</strong>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;" id="pipe-desc">
+                Sub-15ms local neural voice isolation via Silero VAD in ONNX Runtime. Zero cloud egress.
               </p>
-              <ul class="pillar-points">
-                <li>Production experience leading internal agentic workflow enablement at Base Camp Digital.</li>
-                <li>Strict JSON schema enforcement with Pydantic & Zod to guarantee API contract compliance.</li>
-                <li>Dynamic tool call verification and rollback states preventing side-effect corruption.</li>
-              </ul>
             </div>
-
-            <div class="ai-pillar-card">
-              <div class="pillar-head">
-                <div class="pillar-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </div>
-                <div>
-                  <h3>On-Device & Edge Quantized AI</h3>
-                  <span class="pillar-tagline">Local-First · Zero Cloud Dependency</span>
-                </div>
-              </div>
-              <p>
-                Eliminating egress costs and network latency by executing quantized models directly on Apple Silicon, Android NPU, and desktop devices via ONNX Runtime and Flutter native bindings.
-              </p>
-              <ul class="pillar-points">
-                <li>Author of <code>Local AI Kit</code> — embedding quantized language models and local speech synthesis in Flutter.</li>
-                <li>4-bit and 8-bit GGUF quantization preserving model accuracy while reducing RAM footprint by 70%.</li>
-                <li>Complete offline execution guaranteeing strict regulatory data privacy (GDPR / HIPAA ready).</li>
-              </ul>
-            </div>
-
-            <div class="ai-pillar-card">
-              <div class="pillar-head">
-                <div class="pillar-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
-                </div>
-                <div>
-                  <h3>Multimodal Audio & Neural Voice Synthesis</h3>
-                  <span class="pillar-tagline">Low Latency DSP & Streaming Audio</span>
-                </div>
-              </div>
-              <p>
-                Architecting real-time neural voice pipelines combining PyTorch models, mel-spectrogram vocoding, and WebSocket streaming for lifelike zero-shot voice synthesis.
-              </p>
-              <ul class="pillar-points">
-                <li>Shipped <code>LangCity</code>: AI-driven conversational NPCs with dynamic voice and Japanese fluency tuning.</li>
-                <li>Active builder across RevenueCat Shipaton, Meta Muse Global AI Hackathon, and PayPal AI Hackathon.</li>
-                <li>FastAPI streaming audio gateways delivering sub-200ms time-to-first-audio-chunk.</li>
-              </ul>
-            </div>
-
-            <div class="ai-pillar-card">
-              <div class="pillar-head">
-                <div class="pillar-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                </div>
-                <div>
-                  <h3>Hardened Enterprise Guardrails & Cloud IAM</h3>
-                  <span class="pillar-tagline">Certified Cloud Security Engineer Perspective</span>
-                </div>
-              </div>
-              <p>
-                Deploying enterprise AI without security boundaries is reckless. Combining Google Cloud Security Engineering principles with Red Hat Keycloak IAM to safeguard enterprise data.
-              </p>
-              <ul class="pillar-points">
-                <li>Hardened API gateways preventing prompt injection attacks, sensitive PII leaks, and SSRF exploits.</li>
-                <li>Token budget circuit-breakers preventing runaway API billing and denial-of-wallet vectors.</li>
-                <li>Comprehensive audit logs integrated with enterprise compliance suites and centralized telemetry.</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- AI Model & Provider Ecosystem -->
-          <div class="ai-stack-bar">
-            <span class="stack-lead">Models & AI Stack</span>
-            <div class="stack-logos">
-              <span class="stack-badge">Google Gemini</span>
-              <span class="stack-badge">Anthropic Claude</span>
-              <span class="stack-badge">OpenAI GPT-4o</span>
-              <span class="stack-badge">DeepSeek R1 / V3</span>
-              <span class="stack-badge">Meta Llama 3</span>
-              <span class="stack-badge">Nvidia NIM</span>
-              <span class="stack-badge">HuggingFace</span>
-              <span class="stack-badge">ElevenLabs</span>
-              <span class="stack-badge">ONNX Runtime</span>
+            <div class="pipe-specs" id="pipe-specs">
+              <span class="pipe-spec-item">Latency: <strong>&lt;15ms</strong></span>
+              <span class="pipe-spec-item">RAM: <strong>14 MB</strong></span>
+              <span class="pipe-spec-item">Egress: <strong>0 KB</strong></span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Technical Skills & Craft -->
-      <section class="section wrap" id="skills">
-        <div class="section-head">
-          <div>
-            <p class="section-eyebrow">03 / Language & Architectural Mastery</p>
-            <h2 class="section-title">Clean code.<br /><span class="serif">Deep systems discipline.</span></h2>
+      <!-- History & Tech Stack (Compact UI Bento) -->
+      <section class="bento-grid" id="experience">
+        <!-- History Timeline -->
+        <div class="bento-card timeline-card">
+          <div class="card-top">
+            <span class="card-label">Engineering History</span>
+            <span class="card-badge">Singapore & India</span>
           </div>
-          <p class="section-desc">
-            Technologies wielded in production environments. From systems-level C-ABI bridging to enterprise IAM and cloud-native microservices.
-          </p>
-        </div>
 
-        <div class="skills-grid">
-          {coreLanguages.map((s) => (
-            <article class="skill-card">
-              <div class="skill-top">
-                <div class="skill-logo" set:html={s.logo} />
-                <div class="skill-meta">
-                  <div class="skill-name-row">
-                    <h4>{s.name}</h4>
-                    <span class="skill-exp-tag">{s.experience}</span>
-                  </div>
-                  <span class="skill-category">{s.category}</span>
+          <div class="timeline-mini-list">
+            {timelineEntries.map(e => (
+              <div class="t-item">
+                <div class="t-item-left">
+                  <strong>{e.company}</strong>
+                  <small>{e.role} · {e.note}</small>
                 </div>
+                <span class="t-item-right">{e.period}</span>
               </div>
-              <p class="skill-desc">{s.description}</p>
-              <div class="skill-tech-chips">
-                {s.tags.map((t) => <span>{t}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <!-- Experience -->
-      <section class="exp-section wrap" id="experience">
-        <div class="section-head">
-          <div>
-            <p class="section-eyebrow">04 / Professional Career</p>
-            <h2 class="section-title">Production track record.<br /><span class="serif">Grounded in resilience.</span></h2>
+            ))}
           </div>
-          <p class="section-desc">
-            Senior engineering across enterprise cloud architectures, high-stakes identity infrastructure, and developer tooling.
-          </p>
         </div>
 
-        <div class="timeline">
-          {experienceList.map((item) => (
-            <div class="timeline-item">
-              <div class="timeline-meta">
-                <h3>{item.company}</h3>
-                <span class="timeline-role">{item.role}</span>
-                <span class="timeline-date">{item.period}</span>
-                <span class="timeline-loc">{item.location}</span>
-              </div>
-              <div class="timeline-content">
-                <ul>
-                  {item.highlights.map((h) => <li>{h}</li>)}
-                </ul>
-              </div>
-            </div>
-          ))}
+        <!-- Stack Matrix -->
+        <div class="bento-card stack-card">
+          <div class="card-top">
+            <span class="card-label">Production Stack</span>
+            <span class="card-badge">Verified</span>
+          </div>
 
-          <div class="timeline-item">
-            <div class="timeline-meta">
-              <h3>Anna University, Chennai</h3>
-              <span class="timeline-role">B.Tech (Honours) · CGPA: 8.42</span>
-              <span class="timeline-date">2016 – 2020</span>
-              <span class="timeline-loc">Faculty of Technology</span>
-            </div>
-            <div class="timeline-content">
-              <ul>
-                <li>President of Student Quality Council (2018 – 2020), leading 150+ students in orchestrating academic excellence and institutional tech initiatives.</li>
-                <li>Rigorous foundations in algorithms, distributed computer systems, database theory, and network protocols.</li>
-              </ul>
-            </div>
+          <div class="stack-chips-grid">
+            {techChips.map(c => (
+              <span class="tech-chip">{c.name}</span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Direct Contact Dock Card -->
+        <div class="bento-card contact-dock-card" id="contact">
+          <div class="contact-dock-left">
+            <h3>Direct Contact</h3>
+            <p>Singapore · +65 85315853 · ajithberlin10@gmail.com</p>
+          </div>
+
+          <div class="contact-dock-actions">
+            <button id="copy-action-btn" class="dock-btn primary">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copy-action-text">Copy Email</span>
+            </button>
+
+            <a class="dock-btn" href="/Ajith_Berlin_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <span>View Resume</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+
+            <a class="dock-btn" href="/Ajith_Berlin_Resume.pdf" download="Ajith_Berlin_Resume.pdf">
+              <span>Download</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- Open Source Workspace -->
-      <section class="section wrap" id="opensource">
-        <div class="section-head">
-          <div>
-            <p class="section-eyebrow">05 / The Open Workspace</p>
-            <h2 class="section-title">Public Repositories & Experiments</h2>
-          </div>
-          <p class="section-desc">
-            Real-time catalog synchronized daily from GitHub. Includes independent open source under <code>ajithberlin</code>, <code>AlphBerlin</code>, and <code>Bytamilan</code>.
-          </p>
-        </div>
-
-        <div class="repo-toolbar">
-          <div class="filters" role="group" aria-label="Filter repositories by organization">
-            <button class="filter-btn active" data-owner="all">All ({originals.length})</button>
-            <button class="filter-btn" data-owner="ajithberlin">Personal</button>
-            <button class="filter-btn" data-owner="alphberlin">AlphBerlin</button>
-            <button class="filter-btn" data-owner="bytamilan">Bytamilan</button>
-          </div>
-
-          <div class="search-box">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="repo-search" type="search" placeholder="Search repositories..." aria-label="Search repositories" />
-          </div>
-        </div>
-
-        <div class="repo-grid" id="repo-grid">
-          {repos.slice(0, 12).map((r) => (
-            <article
-              class="repo-card"
-              data-owner={r.owner.toLowerCase()}
-              data-search={`${r.name} ${r.description} ${r.topics?.join(' ') || ''} ${r.language}`.toLowerCase()}
-              data-stars={r.stars}
-            >
-              <div class="repo-card-top">
-                <span class="repo-owner-tag">{r.owner}/{r.name}</span>
-                <span>{r.fork ? 'Fork' : 'Public'}</span>
-              </div>
-              <h3>
-                <a href={r.url} target="_blank" rel="noopener noreferrer">
-                  <span>{r.name}</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                </a>
-              </h3>
-              <p>{r.description || 'Public repository code and development history.'}</p>
-              <div class="repo-card-footer">
-                <span>{r.language}</span>
-                <span>{r.stars} stars</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <!-- Contact & Resume Download Section -->
-      <section class="contact-section wrap" id="contact">
-        <div class="contact-card">
-          <div class="contact-left">
-            <p class="section-eyebrow">Direct Contact & Consultation</p>
-            <h2>Let’s start a<br /><span class="serif">thoughtful conversation.</span></h2>
-            <p>
-              Whether you’re exploring enterprise cloud security, on-device AI integration, or looking for senior systems leadership — my inbox is open.
-            </p>
-
-            <div class="contact-actions">
-              <a class="btn btn-primary" href="mailto:ajithberlin10@gmail.com">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <span>Email ajithberlin10@gmail.com</span>
-              </a>
-
-              <button class="copy-email-btn" id="copy-email-btn" title="Click to copy email address">
-                <svg id="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                <span id="copy-text">Copy Email</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="contact-details-box">
-            <div class="contact-info-row">
-              <div class="info-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div>
-                <strong>Direct Email</strong>
-                <a href="mailto:ajithberlin10@gmail.com">ajithberlin10@gmail.com</a>
-              </div>
-            </div>
-
-            <div class="contact-info-row">
-              <div class="info-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </div>
-              <div>
-                <strong>Phone / WhatsApp</strong>
-                <a href="tel:+6585315853">+65 85315853</a>
-              </div>
-            </div>
-
-            <div class="contact-info-row">
-              <div class="info-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-              <div>
-                <strong>Professional Network</strong>
-                <a href="https://linkedin.com/in/ajithberlin/" target="_blank" rel="noopener noreferrer">linkedin.com/in/ajithberlin</a>
-              </div>
-            </div>
-
-            <div class="resume-download-bar">
-              <div>
-                <strong>Curriculum Vitae</strong>
-                <span>Updated November 2026</span>
-              </div>
-              <div style="display: flex; gap: 8px;">
-                <a class="btn btn-secondary" href="/Ajith_Berlin_Resume.pdf" target="_blank" rel="noopener noreferrer" style="padding: 6px 12px; font-size: 11px;">
-                  View
-                </a>
-                <a class="btn btn-primary" href="/Ajith_Berlin_Resume.pdf" download="Ajith_Berlin_Resume.pdf" style="padding: 6px 12px; font-size: 11px;">
-                  Download
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="wrap footer-wrap">
-        <div>
-          <span>Ajith Berlin Arul Nayagam</span> · <span>Professional Cloud Security Engineer</span>
-        </div>
-        <div class="footer-links">
+      <!-- Minimal Footer -->
+      <footer class="footer-row">
+        <span>Ajith Berlin · Professional Cloud Security Engineer</span>
+        <div style="display: flex; gap: 14px;">
           <a href="https://github.com/ajithberlin" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://linkedin.com/in/ajithberlin/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="https://alphberlin.com" target="_blank" rel="noopener noreferrer">AlphBerlin</a>
-          <a href="#main">Back to top</a>
+          <a href="#">Top ↑</a>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </main>
 
-    <!-- Client Script -->
+    <!-- Interactive Client Script -->
     <script>
-      // Theme Toggle
-      const themeBtn = document.querySelector<HTMLButtonElement>('#theme-btn');
-      const moonIcon = document.querySelector<HTMLElement>('#moon-icon');
-      const sunIcon = document.querySelector<HTMLElement>('#sun-icon');
-
-      function updateThemeIcons(isDark: boolean) {
-        if (moonIcon && sunIcon) {
-          moonIcon.style.display = isDark ? 'none' : 'block';
-          sunIcon.style.display = isDark ? 'block' : 'none';
+      // Pixel Canvas interactive generator
+      const grid = document.getElementById('canvas-grid');
+      if (grid) {
+        for (let i = 0; i < 64; i++) {
+          const cell = document.createElement('span');
+          cell.className = 'p-cell' + (i === 18 || i === 21 || i === 26 || i === 29 || i === 42 || i === 45 || i === 50 || i === 53 ? ' lit' : '');
+          cell.addEventListener('mouseenter', () => cell.classList.toggle('lit'));
+          cell.addEventListener('click', () => cell.classList.toggle('lit'));
+          grid.appendChild(cell);
         }
       }
 
-      const initialIsDark = document.documentElement.dataset.theme === 'dark';
-      updateThemeIcons(initialIsDark);
-
-      themeBtn?.addEventListener('click', () => {
-        const isDark = document.documentElement.dataset.theme === 'dark';
-        const next = isDark ? 'light' : 'dark';
-        document.documentElement.dataset.theme = next;
-        try {
-          localStorage.setItem('theme', next);
-        } catch {}
-        updateThemeIcons(!isDark);
-      });
-
-      // Pipeline Stages Interactive Data
-      const stagesData = [
+      // Pipeline Graph interactive switcher
+      const pipeStages = [
         {
-          title: 'Stage 01: Multimodal Intake & Voice Activity Detection',
-          desc: 'Captures microphone audio and sensory inputs on the client device. Uses an embedded Silero VAD neural network to discriminate voice activity from ambient noise without transmitting raw audio to external servers.',
-          specs: ['Latency: <15ms', 'Engine: ONNX Runtime / Flutter FFI', 'Privacy: Zero Cloud Egress', 'Bandwidth: 0 KB until speech confirmed'],
-          code: `// Local VAD & Streaming Frame Buffer\nfinal vad = SileroVadEngine(sampleRate: 16000);\naudioStream.listen((chunk) async {\n  final isSpeech = await vad.evaluate(chunk);\n  if (isSpeech) {\n    speechBuffer.append(chunk);\n  } else if (speechBuffer.isNotEmpty) {\n    dispatchToWhisper(speechBuffer.flush());\n  }\n});`
+          title: '01 / Local Voice Activity Detection',
+          desc: 'Sub-15ms local neural voice isolation via Silero VAD in ONNX Runtime. Zero cloud egress.',
+          specs: [['Latency', '<15ms'], ['RAM', '14 MB'], ['Egress', '0 KB']]
         },
         {
-          title: 'Stage 02: Enterprise Cloud Security & Policy Enforcement',
-          desc: 'Applies zero-trust boundary validation prior to model ingestion. Sanitizes user prompts against indirect prompt injection, strips sensitive PII (tokens, auth cookies), and validates per-user rate limits and spend quotas.',
-          specs: ['Security: CSP Compliance & Zero Trust', 'IAM: Keycloak RHBK SAML 2.0', 'Budget: Token Circuit Breaker', 'Audit: Centralized SIEM Telemetry'],
-          code: `// Security Boundary Guard\nexport async function evaluateGuardrails(ctx: AgentContext) {\n  const piiRedacted = redactSensitiveTokens(ctx.prompt);\n  const securityResult = await scanPromptInjection(piiRedacted);\n  if (securityResult.riskScore > 0.8) {\n    throw new SecurityViolation('Potential prompt injection rejected');\n  }\n  return enforceQuotaBudget(ctx.userId, ctx.maxTokens);\n}`
+          title: '02 / Cloud Security & Guardrails',
+          desc: 'CSP sanitization, prompt injection isolation, token quota circuit-breakers, Keycloak SAML verification.',
+          specs: [['Security', 'Zero Trust'], ['IAM', 'Keycloak RHBK'], ['Policy', 'Hardened']]
         },
         {
-          title: 'Stage 03: Tiered Model Reasoning & Dynamic Dispatch',
-          desc: 'Routes requests dynamically based on task complexity. Lightweight classifications and local dialogues resolve entirely offline on-device; multi-step deductive plans route to frontier reasoning models (Gemini 2.5, Claude 3.5 Sonnet, DeepSeek R1).',
-          specs: ['Routing: Dynamic Cost-Latency Optimization', 'Local: GGUF 4-bit / 8-bit Q4_K_M', 'Cloud: Gemini / Claude 3.5 / GPT-4o', 'Protocol: SSE Streaming Chunked HTTP/2'],
-          code: `// Strategic Model Router\nif (task.isOfflineCapable && localDevice.supportsNpu) {\n  return executeLocalLlm(task.prompt, { model: 'llama-3.2-3b-q4' });\n} else {\n  return executeFrontierAgent(task.prompt, {\n    providers: ['gemini-2.5', 'claude-3.5-sonnet'],\n    fallbackThresholdMs: 1500\n  });\n}`
+          title: '03 / Strategic Hybrid Model Router',
+          desc: 'Dynamic dispatch: lightweight tasks to local GGUF SLMs, multi-step reasoning to Gemini 2.5 & Claude 3.5.',
+          specs: [['Local', 'GGUF Q4_K_M'], ['Frontier', 'Gemini / Claude'], ['TTFB', '180ms']]
         },
         {
-          title: 'Stage 04: Model Context Protocol (MCP) & Deterministic Tool Bus',
-          desc: 'Allows reasoning models to inspect files, query databases, and trigger verified actions. All tool execution is isolated, strictly typed via JSON Schema, and transactional to permit rollbacks on failure.',
-          specs: ['Protocol: Model Context Protocol (MCP)', 'Validation: Pydantic & Zod Schemas', 'Isolation: Read-Only vs Mutating Sandboxes', 'Determinism: Automated Verification Tests'],
-          code: `// MCP Tool Registration & Execution\nconst tool = defineTool({\n  name: 'query_account_ledger',\n  schema: z.object({ accountId: z.string().uuid() }),\n  execute: async ({ accountId }) => {\n    const session = await keycloak.verifyToken(ctx.auth);\n    return db.queryLedger(accountId, { tenantId: session.tenantId });\n  }\n});`
+          title: '04 / MCP Deterministic Tool Bus',
+          desc: 'Strictly typed JSON schemas (Pydantic / Zod) executing isolated actions with transactional rollbacks.',
+          specs: [['Protocol', 'Model Context Protocol'], ['Contracts', 'Zod / Pydantic'], ['State', 'Atomic']]
         },
         {
-          title: 'Stage 05: Action Commit & Real-Time Neural Voice Synthesis',
-          desc: 'Commits state changes atomically and converts agent responses into natural audio chunks or live UI components with sub-200ms time-to-first-byte streaming.',
-          specs: ['Audio DSP: Streaming FastTTS & ElevenLabs', 'Latency: <180ms TTFB', 'UI: Streaming JSON State Hydration', 'Persistence: Supabase / PostgreSQL'],
-          code: `// Streaming Neural Voice Dispatch\nconst ttsStream = await voiceEngine.streamSynthesis({\n  textChunkStream: agent.generateTokens(),\n  voiceProfile: 'Tokyo-NPC-Dialect',\n  format: 'audio/opus'\n});\naudioSpeaker.play(ttsStream);`
+          title: '05 / Action Commit & Neural Synthesis',
+          desc: 'FastAPI streaming audio synthesis and live state hydration with sub-200ms time-to-first-chunk.',
+          specs: [['Audio DSP', 'PyTorch / Opus'], ['Latency', '<200ms'], ['Stream', 'WebSocket']]
         }
       ];
 
-      const steps = Array.from(document.querySelectorAll<HTMLElement>('.pipeline-step'));
-      const detailTitle = document.querySelector<HTMLElement>('#detail-title');
-      const detailDesc = document.querySelector<HTMLElement>('#detail-desc');
-      const detailSpecs = document.querySelector<HTMLElement>('#detail-specs');
-      const detailCode = document.querySelector<HTMLElement>('#detail-code');
+      const pipeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.pipe-node-btn'));
+      const pipeTitle = document.getElementById('pipe-title');
+      const pipeDesc = document.getElementById('pipe-desc');
+      const pipeSpecs = document.getElementById('pipe-specs');
 
-      steps.forEach((step) => {
-        const handler = () => {
-          steps.forEach((s) => s.classList.remove('active'));
-          step.classList.add('active');
-          const index = Number(step.dataset.step || 0);
-          const data = stagesData[index];
-          if (data && detailTitle && detailDesc && detailSpecs && detailCode) {
-            detailTitle.textContent = data.title;
-            detailDesc.textContent = data.desc;
-            detailSpecs.innerHTML = data.specs.map((s) => `<span class="spec-chip">${s}</span>`).join('');
-            detailCode.textContent = data.code;
-          }
-        };
-        step.addEventListener('click', handler);
-        step.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handler();
+      pipeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          pipeButtons.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const data = pipeStages[Number(btn.dataset.idx || 0)];
+          if (data && pipeTitle && pipeDesc && pipeSpecs) {
+            pipeTitle.textContent = data.title;
+            pipeDesc.textContent = data.desc;
+            pipeSpecs.innerHTML = data.specs.map(([k, v]) => `<span class="pipe-spec-item">${k}: <strong>${v}</strong></span>`).join('');
           }
         });
       });
 
-      // Copy Email functionality
-      const copyBtn = document.querySelector<HTMLButtonElement>('#copy-email-btn');
-      const copyText = document.querySelector<HTMLElement>('#copy-text');
-      copyBtn?.addEventListener('click', async () => {
+      // Quantization pills toggle
+      const qPills = Array.from(document.querySelectorAll<HTMLElement>('.q-pill'));
+      qPills.forEach((p) => {
+        p.addEventListener('click', () => {
+          qPills.forEach((x) => x.classList.remove('active'));
+          p.classList.add('active');
+        });
+      });
+
+      // Copy email handlers
+      async function copyEmail(btnId: string, textId: string) {
+        const textEl = document.getElementById(textId);
         try {
           await navigator.clipboard.writeText('ajithberlin10@gmail.com');
-          if (copyText) {
-            copyText.textContent = 'Copied to clipboard!';
+          if (textEl) {
+            textEl.textContent = 'Copied!';
             setTimeout(() => {
-              copyText.textContent = 'Copy Email';
-            }, 2000);
+              textEl.textContent = textId.includes('dock') ? 'Email' : 'Copy Email';
+            }, 1800);
           }
         } catch {
           window.location.href = 'mailto:ajithberlin10@gmail.com';
         }
-      });
-
-      // Repository search & filter
-      const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-btn'));
-      const repoSearch = document.querySelector<HTMLInputElement>('#repo-search');
-      const repoCards = Array.from(document.querySelectorAll<HTMLElement>('.repo-card'));
-
-      let activeOwner = 'all';
-
-      function filterRepos() {
-        const query = repoSearch?.value.trim().toLowerCase() || '';
-        repoCards.forEach((card) => {
-          const owner = card.dataset.owner || '';
-          const searchData = card.dataset.search || '';
-          const matchesOwner = activeOwner === 'all' || owner === activeOwner;
-          const matchesQuery = !query || searchData.includes(query);
-          card.style.display = matchesOwner && matchesQuery ? 'flex' : 'none';
-        });
       }
 
-      filterBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          filterBtns.forEach((b) => b.classList.remove('active'));
-          btn.classList.add('active');
-          activeOwner = btn.dataset.owner || 'all';
-          filterRepos();
-        });
-      });
+      document.getElementById('copy-quick-email')?.addEventListener('click', () => copyEmail('copy-quick-email', 'copy-dock-text'));
+      document.getElementById('copy-action-btn')?.addEventListener('click', () => copyEmail('copy-action-btn', 'copy-action-text'));
 
-      repoSearch?.addEventListener('input', filterRepos);
+      // Theme toggle
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const isLight = document.documentElement.dataset.theme === 'light';
+        const next = isLight ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch {}
+      });
     </script>
   </body>
 </html>
