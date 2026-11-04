@@ -8,22 +8,53 @@ const repos = snapshot.repos
 
 const originals = repos.filter(r => !r.fork && !r.archived);
 
-const techChips = [
-  { name: 'Gemini 2.5', cat: 'ai' },
-  { name: 'Claude 3.5', cat: 'ai' },
-  { name: 'DeepSeek R1', cat: 'ai' },
-  { name: 'Llama 3.3', cat: 'ai' },
-  { name: 'ONNX Runtime', cat: 'ai' },
-  { name: 'Silero VAD', cat: 'ai' },
-  { name: 'Keycloak RHBK', cat: 'cloud' },
-  { name: 'AWS & GCP', cat: 'cloud' },
-  { name: 'SAML 2.0 / OIDC', cat: 'cloud' },
-  { name: 'Swift & Metal', cat: 'lang' },
-  { name: 'Rust C-ABI', cat: 'lang' },
-  { name: 'Flutter & Dart', cat: 'lang' },
-  { name: 'TypeScript', cat: 'lang' },
-  { name: 'Python & PyTorch', cat: 'lang' },
-  { name: 'FastAPI', cat: 'lang' }
+const skillCategories = [
+  {
+    category: 'AI Agent Integration & API Development',
+    id: 'ai',
+    skills: ['OpenAI', 'Anthropic Claude', 'Google Gemini', 'Meta Muse', 'DeepSeek R1/V3', 'Meta Llama', 'HuggingFace', 'Nvidia NIM', 'ElevenLabs', 'Model Context Protocol (MCP)']
+  },
+  {
+    category: 'DevOps & Cloud',
+    id: 'cloud',
+    skills: ['Red Hat Build of Keycloak (RHBK)', 'Red Hat SSO', 'AWS (EC2 / S3 / IAM)', 'Google Cloud (Certified Security Eng)', 'Azure Cloud', 'Zoho Cloud', 'Vercel', 'Docker', 'Git', 'Azure DevOps', 'Tyk API Hub', 'Supabase']
+  },
+  {
+    category: 'Backend & Services',
+    id: 'backend',
+    skills: ['Node.js', 'Spring Boot', 'Hibernate', 'JUnit 5', 'Jersey', 'Apache Kafka', 'Flask', 'FastAPI', 'Pydantic', 'Crystal Reports']
+  },
+  {
+    category: 'FrontEnd & UI',
+    id: 'frontend',
+    skills: ['HTML', 'CSS', 'Sass', 'React.js', 'Next.js', 'Flutter', 'Tailwind CSS', 'Material UI', 'shadcn/ui', 'StoryBook']
+  },
+  {
+    category: 'Programming Languages',
+    id: 'languages',
+    skills: ['Java', 'Python', 'Dart', 'SQL', 'JavaScript', 'TypeScript']
+  },
+  {
+    category: 'Databases',
+    id: 'databases',
+    skills: ['PostgreSQL', 'MySQL', 'MSSQL', 'MongoDB', 'Firebase']
+  },
+  {
+    category: 'Testing & Automation',
+    id: 'testing',
+    skills: ['Apache JMeter', 'Postman', 'Wireshark', 'Packet Sender', 'Fastlane', 'GitHub Actions']
+  },
+  {
+    category: 'Tools & Suites',
+    id: 'tools',
+    skills: ['MS Office (Word, Excel, PowerPoint, Outlook, Teams)', 'Zoho Suite', 'Payload CMS', 'Strapi', 'Plasmic', 'Sigma', 'RevenueCat']
+  }
+];
+
+const spokenLanguages = [
+  { name: 'English', level: 'Fluent' },
+  { name: 'Tamil', level: 'Native' },
+  { name: 'Malayalam', level: 'Communication Only' }
 ];
 
 const detailedExperience = [
@@ -162,6 +193,7 @@ const detailedExperience = [
           <a class="dock-link" href="#work">Work</a>
           <a class="dock-link" href="#architecture">Architecture</a>
           <a class="dock-link" href="#experience">History</a>
+          <a class="dock-link" href="#skills">Skills</a>
         </div>
 
         <span class="dock-divider"></span>
@@ -478,17 +510,49 @@ const detailedExperience = [
           </div>
         </div>
 
-        <!-- Stack Matrix -->
-        <div class="bento-card timeline-card">
+        <!-- Complete Skills & Abilities Matrix from Resume -->
+        <div class="bento-card skills-bento-card" id="skills">
           <div class="card-top">
-            <span class="card-label">Production Technologies</span>
-            <span class="card-badge">Daily Mastery</span>
+            <span class="card-label">Skills & Abilities</span>
+            <span class="card-badge">Complete Resume Matrix ({skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0)} Skills)</span>
           </div>
 
-          <div class="stack-chips-grid">
-            {techChips.map((c) => (
-              <span class="tech-chip">{c.name}</span>
+          <!-- Interactive Category Filter Bar -->
+          <div class="skills-filter-bar" id="skills-filter-bar">
+            <button class="skill-filter-btn active" data-cat="all">All Disciplines ({skillCategories.length})</button>
+            {skillCategories.map((cat) => (
+              <button class="skill-filter-btn" data-cat={cat.id}>{cat.category}</button>
             ))}
+          </div>
+
+          <!-- Categories Grid -->
+          <div class="skills-category-grid" id="skills-category-grid">
+            {skillCategories.map((cat) => (
+              <div class="skill-category-box" data-cat-id={cat.id}>
+                <div class="skill-cat-header">
+                  <span class="skill-cat-title">{cat.category}</span>
+                  <span class="skill-cat-count">{cat.skills.length} skills</span>
+                </div>
+                <div class="skill-chips-row">
+                  {cat.skills.map((s) => (
+                    <span class="skill-pill">{s}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Spoken Languages Row -->
+          <div class="spoken-languages-bar">
+            <span class="card-label">Languages & Communication</span>
+            <div class="spoken-lang-items">
+              {spokenLanguages.map((l) => (
+                <div class="spoken-lang-item">
+                  <strong>{l.name}</strong>
+                  <span>{l.level}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -631,6 +695,21 @@ const detailedExperience = [
           expCards.forEach((card) => {
             const expId = card.dataset.expId;
             card.style.display = filter === 'all' || expId === filter ? 'flex' : 'none';
+          });
+        });
+      });
+
+      // Skills Category Filter Tabs
+      const skillFilterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.skill-filter-btn'));
+      const skillBoxes = Array.from(document.querySelectorAll<HTMLElement>('.skill-category-box'));
+
+      skillFilterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          skillFilterBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.dataset.cat || 'all';
+          skillBoxes.forEach((box) => {
+            box.style.display = cat === 'all' || box.dataset.catId === cat ? 'flex' : 'none';
           });
         });
       });
